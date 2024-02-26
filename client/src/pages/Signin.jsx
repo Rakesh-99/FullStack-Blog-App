@@ -77,7 +77,7 @@ const Signin = () => {
 
     return (
         <>
-            <div className="md:flex justify-center items-center w-full md:gap-5  pt-20">
+            <div className="md:flex justify-center items-center w-full md:gap-5  min-h-screen pt-20 md:pt-0">
                 {/* Left content  */}
 
 
@@ -88,7 +88,7 @@ const Signin = () => {
                         <span className='font-bold text-xl'>Blog</span>
                     </div>
 
-                    <div className="text-xs md:text-sm text-gray-800 flex flex-col gap-1">
+                    <div className="text-xs md:text-sm  flex flex-col gap-1">
                         <p className=' '>Click on the "Sign in" button to begin your journey.</p>
                         <p className=''>You can sign in with email and password or with google.</p>
                     </div>

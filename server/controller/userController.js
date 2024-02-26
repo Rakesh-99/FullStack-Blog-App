@@ -3,7 +3,7 @@ import asyncHandler from 'express-async-handler';
 import { errorHandler } from "../utils/errorHandler.js";
 import dotenv from 'dotenv';
 dotenv.config();
-import bcrypt from 'bcrypt';
+import bcrypt, { hash } from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer';
 
@@ -66,7 +66,9 @@ export const signIn = asyncHandler(async (req, res, next) => {
     const passwordMatch = await bcrypt.compare(password, isUserExist.password);
 
     if (passwordMatch) {
+
         const accessToken = jwt.sign({ _id: isUserExist._id }, process.env.ACCESS_TOKEN, { expiresIn: '30d' });
+
         const addToken = await userModel.findByIdAndUpdate({ _id: isUserExist._id }, { token: accessToken }, { new: true });
 
         return res.status(200).json({
@@ -87,5 +89,27 @@ export const googleOAth = asyncHandler(async (req, res, next) => {
 
     const { name, email, googlePhotoURL } = req.body;
 
-    console.log(name, email, googlePhotoURL);
+
+    const user = await userModel.findOne({ email: email });
+
+    if (user) {
+        const accessToken = jwt.sign({ _id: user._id }, process.env.ACCESS_TOKEN);
+
+        return res.status(200).json({ success: true, token: accessToken, user: user });
+
+    } else {
+
+        const createPassword = Math.random().toString().slice(-10).split('').join();
+        const genSalt = await bcrypt.genSalt(10);
+        const hashedPass = await bcrypt.hash(createPassword, genSalt);
+
+        const createNewUser = new userModel({
+            username: name,
+            email: email,
+            profilePicture: googlePhotoURL,
+            password: hashedPass
+        });
+        await createNewUser.save();
+        return res.status(200).json({ success: true, user: createNewUser });
+    };
 })

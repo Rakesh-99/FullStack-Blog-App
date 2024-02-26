@@ -9,10 +9,11 @@ import { Toaster } from 'react-hot-toast';
 import { store } from './app/store';
 import { Provider } from 'react-redux';
 import Signin from './pages/Signin';
-import Spinner from './components/spinner/Spinner';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
-
+import ThemeProvider from './components/ThemeProvider';
+import Dashboard from './pages/Dashboard';
+import PrivateRoute from './components/PrivateRoute';
 
 
 
@@ -24,15 +25,22 @@ const App = () => {
             <Provider store={store}>
                 <BrowserRouter>
                     <PersistGate persistor={persistor}>
-                        <Header />
-                        <Routes>
-                            <Route path='/' element={<Home />} />
-                            <Route path='/about' element={<About />} />
-                            <Route path='/contact' element={<Contact />} />
-                            <Route path='/signup' element={<Signup />} />
-                            <Route path='/signin' element={<Signin />} />
-                            <Route path='/spinner' element={<Spinner />} />
-                        </Routes>
+                        <ThemeProvider>
+                            <Header />
+                            <Routes>
+                                <Route path='/' element={<Home />} />
+                                <Route path='/about' element={<About />} />
+                                <Route path='/contact' element={<Contact />} />
+                                <Route path='/signup' element={<Signup />} />
+                                <Route path='/signin' element={<Signin />} />
+
+                                {/* Private route for protecting Dashboard  */}
+                                <Route element={<PrivateRoute />} >
+                                    <Route path='/dashboard' element={<Dashboard />} />
+                                </Route>
+
+                            </Routes>
+                        </ThemeProvider>
                     </PersistGate>
                 </BrowserRouter>
                 <Toaster />

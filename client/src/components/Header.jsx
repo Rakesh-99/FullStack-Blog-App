@@ -6,11 +6,20 @@ import { IoMenu } from "react-icons/io5";
 import { MdSunny } from "react-icons/md";
 import { IoIosMoon } from "react-icons/io";
 import { IoEllipsisHorizontalOutline } from "react-icons/io5";
+import { useDispatch, useSelector } from 'react-redux';
+import { Avatar, Dropdown } from 'flowbite-react';
+import { changeTheme } from '../features/themeSlice';
+
+
 
 
 
 
 const Header = () => {
+
+    const dispatch = useDispatch();
+    const currentUser = useSelector((state) => state.user.user);
+
 
     const [toggleHamMenu, setToggleHamMenu] = useState(false);
     const [themeToggle, setThemeToggle] = useState(false);
@@ -26,6 +35,7 @@ const Header = () => {
 
     const toggleTheme = () => {
         setThemeToggle(!themeToggle);
+        dispatch(changeTheme());
     }
 
 
@@ -34,7 +44,7 @@ const Header = () => {
     return (
 
         <>
-            <nav className='px-3 py-3 border shadow-sm sticky top-0 left-0 '>
+            <nav className='px-3 py-3 border dark:border-gray-800 dark:shadow-2xl shadow-sm sticky top-0 left-0 '>
 
                 {/* For larger screen devices  */}
                 <div className='hidden md:flex items-center justify-around ' >
@@ -59,9 +69,34 @@ const Header = () => {
                         <NavLink to={'/contact'} className={`${location.pathname === '/contact' && 'border-b-2 border-green-500'}`}>Contact</NavLink>
                     </div>
 
-                    <div className="flex items-center gap-3">
-                        <button onClick={toggleTheme}>{themeToggle ? <MdSunny size={23} /> : <IoIosMoon size={23} />}</button>
-                        <NavLink to={'/signin'} className='border-2 px-2 text-sm py-1 text-black rounded-md border-green-600 hover:bg-gradient-to-r from-green-400 via-green-700 to-green-400 hover:text-white active:scale-90 transition-all '>Sign In</NavLink>
+                    <div className="flex items-center gap-3 ">
+                        <button className='active:animate-spin' onClick={toggleTheme} >{themeToggle ? <MdSunny size={23} /> : <IoIosMoon size={23} />}</button>
+
+                        {
+                            currentUser ?
+
+                                <Dropdown arrowIcon={false} inline label={<Avatar img={currentUser.profilePicture} rounded />} >
+
+                                    <Dropdown.Header>
+                                        <p className='text-sm'>@{currentUser.username}</p>
+                                        <p className='text-sm  truncate'>{currentUser.email}</p>
+                                    </Dropdown.Header>
+
+
+                                    <Dropdown.Item>
+                                        <NavLink to={'/dashboard?tab=profile'}>Profile</NavLink>
+                                    </Dropdown.Item>
+
+                                    <Dropdown.Divider />
+
+                                    <Dropdown.Item>
+                                        <NavLink>Sign out</NavLink>
+                                    </Dropdown.Item>
+
+                                </Dropdown>
+                                :
+                                <NavLink to={'/signin'} className='border-2 px-2 text-sm py-1 text-black rounded-md border-green-600 hover:bg-gradient-to-r from-green-400 via-green-700 to-green-400 hover:text-white active:scale-90 transition-all '>Sign In</NavLink>
+                        }
                     </div>
                 </div>
 
@@ -113,9 +148,9 @@ const Header = () => {
 
                         <NavLink to={'/contact'} className={`${location.pathname === '/contact' && 'border-b border-green-500'}`} onClick={toggleHamBurger}>Contact</NavLink>
 
-                        <button className='border-2 px-2 text-sm py-1 text-black rounded-md border-violet-600 hover:bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-500 hover:text-white active:scale-95 transition-all'>
+                        <NavLink to={'/signin'} onClick={toggleHamBurger} className='border-2 text-sm py-1 text-center  rounded-md border-violet-600 hover:bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-500 hover:text-white active:scale-95 transition-all'>
                             Sign In
-                        </button>
+                        </NavLink>
 
                         <div className="">
                             <span className='absolute bottom-0 left-1/2'><IoEllipsisHorizontalOutline size={40} onClick={toggleHamBurger} className='active:animate-spin active:text-green-400 cursor-pointer' /></span>

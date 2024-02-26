@@ -10,7 +10,9 @@ const Home = () => {
 
   return (
     <>
-      <h1>Home</h1>
+      <div className="min-h-screen px-10 ">
+        <h1>Home</h1>
+      </div>
     </>
   )
 }

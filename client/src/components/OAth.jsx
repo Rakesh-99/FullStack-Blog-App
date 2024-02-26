@@ -2,7 +2,10 @@ import React from 'react'
 import { FcGoogle } from "react-icons/fc";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
 import { firebaseApp } from '../firebase';
-
+import { signInSuccess } from '../features/userSlice'
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 
@@ -14,6 +17,8 @@ import { firebaseApp } from '../firebase';
 const OAth = () => {
 
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const auth = getAuth(firebaseApp);
 
 
@@ -26,21 +31,22 @@ const OAth = () => {
         try {
             const response = await signInWithPopup(auth, provider);
 
-            const sendData = await fetch('http://localhost:8000/api/user/googleOAth', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    name: response.user.displayName,
-                    email: response.user.email,
-                    googlePhotoURL: response.user.photoURL
-                })
-            })
-            const data = sendData.json();
-            console.log('The data is ', data);
+            const googleOAthInfo = await axios.post('http://localhost:8000/api/user/googleOAth', {
+                name: response.user.displayName,
+                email: response.user.email,
+                googlePhotoURL: response.user.photoURL
+            },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+            const { success, user } = googleOAthInfo.data;
 
-
+            if (success) {
+                dispatch(signInSuccess(user));
+                navigate('/');
+            }
         } catch (error) {
             console.log(error);
         }
