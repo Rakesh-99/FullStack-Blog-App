@@ -20,7 +20,7 @@ const DashboardSidebar = () => {
 
     return (
         <>
-            <div className="">
+            <div className="w-full ">
                 <Sidebar className='w-full md:w-56'>
                     <Sidebar.Items className='min-h-screen'>
                         <Sidebar.ItemGroup >

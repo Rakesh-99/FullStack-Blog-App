@@ -83,8 +83,8 @@ const Header = () => {
                                     </Dropdown.Header>
 
 
-                                    <Dropdown.Item>
-                                        <NavLink to={'/dashboard?tab=profile'}>Profile</NavLink>
+                                    <Dropdown.Item as="div">
+                                        <NavLink to='/dashboard?tab=profile'>Profile</NavLink>
                                     </Dropdown.Item>
 
                                     <Dropdown.Divider />

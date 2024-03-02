@@ -31,7 +31,7 @@ const Dashboard = () => {
                 </div>
 
                 {/* Dashboard Profile  */}
-                <div className="">
+                <div className="w-full">
                     {tab === 'profile' && <DashboardProfile />}
                 </div>
 
@@ -40,4 +40,4 @@ const Dashboard = () => {
     )
 }
 
-export default Dashboard
+export default Dashboard;
