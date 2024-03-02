@@ -44,10 +44,10 @@ const Header = () => {
     return (
 
         <>
-            <nav className='px-3 py-3 border dark:border-gray-800 dark:shadow-2xl shadow-sm sticky top-0 left-0 '>
+            <nav className='px-3 py-3 border dark:border-gray-800 dark:shadow-2xl shadow-sm'>
 
                 {/* For larger screen devices  */}
-                <div className='hidden md:flex items-center justify-around ' >
+                <div className='hidden md:flex items-center justify-between ' >
 
                     <NavLink className="flex gap-1 items-center" to={'/'}>
                         <span className='bg-gradient-to-r from-indigo-400 via-purple-600 to-indigo-400 py-1 px-2 rounded-md font-semibold text-white'>Rakesh's</span>
@@ -95,7 +95,7 @@ const Header = () => {
 
                                 </Dropdown>
                                 :
-                                <NavLink to={'/signin'} className='border-2 px-2 text-sm py-1 text-black rounded-md border-green-600 hover:bg-gradient-to-r from-green-400 via-green-700 to-green-400 hover:text-white active:scale-90 transition-all '>Sign In</NavLink>
+                                <NavLink to={'/signin'} className='border-2 px-2 text-sm py-1  rounded-md border-green-600 hover:bg-gradient-to-r from-green-400 via-green-700 to-green-400 hover:text-white active:scale-90 transition-all '>Sign In</NavLink>
                         }
                     </div>
                 </div>
