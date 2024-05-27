@@ -10,21 +10,48 @@ import blogModel from "../model/blogModel.js";
 // Get all blogs : 
 
 export const getAllBlogs = asyncHandler(async (req, res, next) => {
-    try {
-        const getAllBlogsInfo = await blogModel.find({});
 
-        if (getAllBlogsInfo) {
-            return res.status(200).json({
-                success: true,
-                message: 'Blogs have been fetched',
-                blogs: getAllBlogsInfo
-            })
-        }
+    const page = parseInt(req.query.page) || 1;
+    const limitBlogs = parseInt(req.query.limit) || 6;
+    const sortBlog = req.query.sort === 'asc' ? 1 : -1;
+    const skipBlogs = (page - 1) * limitBlogs
 
-    } catch (error) {
-        next(errorHandler(`An error occurred while fetching blogs, ${error}`, 400))
+    const filterBlogs = {
+        ...(req.query.userId && { userId: req.query.userId }),
+        ...(req.query.slug && { slug: req.query.slug }),
+        ...(req.query.blogId && { _id: req.query.blogId }),
+        ...(req.query.searchBlog && {
+
+            $or: [
+                { blogTitle: { $regex: req.query.searchBlog, $options: 'i' } },
+                { blogBody: { $regex: req.query.searchBlog, $options: 'i' } }
+            ]
+        })
     }
-})
+
+
+    try {
+        const blogs = await blogModel.find(filterBlogs).skip(skipBlogs).sort({ updatedAt: sortBlog }).limit(limitBlogs)
+
+
+        const countBlogs = await blogModel.countDocuments(filterBlogs);
+
+        const currentDate = new Date();
+        const previousMonth = new Date(currentDate);
+        previousMonth.setMonth(currentDate.getMonth() - 1);
+
+        return res.status(200).json({
+            success: true,
+            message: 'Blogs have been fetched',
+            previousMonth,
+            countBlogs,
+            blogs: blogs
+        })
+    } catch (error) {
+        return next(errorHandler(error.message), 400);
+    }
+});
+
 
 
 
