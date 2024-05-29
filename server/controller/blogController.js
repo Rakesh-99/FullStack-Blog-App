@@ -46,7 +46,7 @@ export const getAllBlogs = asyncHandler(async (req, res, next) => {
             message: 'Blogs have been fetched',
             previousMonth,
             countBlogs,
-            blogs: blogs
+            blogs
         })
     } catch (error) {
         return next(errorHandler(error.message), 400);
