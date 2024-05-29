@@ -33,7 +33,7 @@ const Dashboard = () => {
 
     return (
         <>
-            <div className="flex md:flex-row flex-col ">
+            <div className="flex md:flex-row flex-col">
                 {/* Sidebar  */}
                 <div>
                     <DashboardSidebar />
@@ -44,7 +44,7 @@ const Dashboard = () => {
                     {tab === 'profile' && <DashboardProfile />}
                 </div>
 
-                <div className={`${tab === 'blogs' && 'flex justify-center w-full'}`}>
+                <div className={`${tab === 'blogs' && 'flex w-full'}`}>
                     {tab === 'blogs' && <AllBlogs />}
                 </div>
             </div>
