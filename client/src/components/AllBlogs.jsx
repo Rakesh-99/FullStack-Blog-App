@@ -5,13 +5,18 @@ import { Table, Toast } from 'flowbite-react'
 import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 import toast, { Toaster } from 'react-hot-toast';
-
+import Modal from './Modal';
 
 const AllBlogs = () => {
 
     const { user } = useSelector((state) => state.userSliceApp);
     const { theme } = useSelector((state) => state.themeSliceApp);
     const [userBlogs, setUserBlogs] = useState([]);
+    const [showMoreButton, setShowMoreButton] = useState(false);
+    const [startPage, setStartPage] = useState(2);
+    const [blogModal, setBlogModal] = useState(false);
+
+
 
 
 
@@ -24,10 +29,17 @@ const AllBlogs = () => {
 
                 try {
 
-                    const fetchBlogs = await axios.get(`http://localhost:8000/api/blog/getallblogs?${user._id}`);
+                    const fetchBlogs = await axios.get(`http://localhost:8000/api/blog/getallblogs?userId=${user._id}`);
 
                     const response = await fetchBlogs.data.blogs;
                     setUserBlogs(response);
+
+                    if (response.length > 5) {
+                        setShowMoreButton(true)
+                    } else {
+                        setShowMoreButton(false)
+                    }
+
 
                 } catch (error) {
                     toast.error('An unexpected error occurred!');
@@ -41,13 +53,37 @@ const AllBlogs = () => {
 
 
 
+    // Delete blog api : 
+
     const deleteBlog = async (id) => {
         console.log(id);
+        setBlogModal(true)
     }
 
 
+    // Show More button api :
 
 
+    const showMoreBlogsButton = async () => {
+
+        setStartPage(startPage + 1)
+
+        try {
+            const response = await axios.get(`http://localhost:8000/api/blog/getallblogs?userId=${user._id}&page=${startPage}`)
+            if (response.status === 200) {
+                setUserBlogs([...userBlogs, ...response.data.blogs]);
+                setStartPage((prevPage) => prevPage + 1);
+
+            }
+            if (response.data.blogs.length === 0) {
+                toast.success('All blogs have been fetched');
+                setShowMoreButton(false)
+                return false;
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
 
     return (
@@ -56,15 +92,15 @@ const AllBlogs = () => {
                 user && user.isAdmin && userBlogs.length > 0
                     ?
                     <div className='min-h-screen w-full md:mx-10 table-auto overflow-x-scroll scrollbar'>
-                        <Table hoverable className='my-5 '>
+                        <Table hoverable className={`my-5  `}>
 
-                            <Table.Head className={` text-base  ${theme === 'dark' ? 'text-gray-100' : 'text-gray-700'} `}>
+                            <Table.Head className={` text-base   ${theme === 'dark' ? 'text-gray-100' : 'text-gray-700'} `}>
 
                                 <Table.HeadCell className={`font-semibold text-sm md:text-base border-b ${theme === 'dark' && 'border-gray-500'} px-10 md:px-0`}>Updated on</Table.HeadCell>
 
                                 <Table.HeadCell className={`font-semibold text-sm md:text-base border-b ${theme === 'dark' && 'border-gray-500'} px-10 md:px-0`}>Image</Table.HeadCell>
 
-                                <Table.HeadCell className={`font-semibold text-sm md:text-base border-b ${theme === 'dark' && 'border-gray-500'} px-10 md:px-0`}>Title</Table.HeadCell>
+                                <Table.HeadCell className={`font-semibold text-sm md:text-base border-b ${theme === 'dark' && 'border-gray-500'} px-10 md:px-0`}>Blog Title</Table.HeadCell>
 
                                 <Table.HeadCell className={`font-semibold text-sm md:text-base border-b ${theme === 'dark' && 'border-gray-500'} px-10 md:px-0`}>Category</Table.HeadCell>
 
@@ -78,34 +114,32 @@ const AllBlogs = () => {
                             {
                                 userBlogs.map((data) => {
 
-                                    const modifiedDate = data.updatedAt.slice(0, 10).toString().split('-').reverse().join('-');
-
                                     return (
 
-                                        <Table.Body key={data._id}>
+                                        <Table.Body key={data._id} className=''>
 
-                                            <Table.Row key={data._id} className={`text-center text-base md:text-lg  transition-all rounded-md  ${theme === 'dark' ? 'hover:bg-slate-700' : 'hover:bg-slate-200'}`}>
+                                            <Table.Row key={data._id} className={` text-center text-base md:text-lg  transition-all rounded-md  ${theme === 'dark' ? 'hover:bg-slate-700' : 'hover:bg-slate-200'}`}>
 
-                                                <Table.Cell className='text-sm md:text-base'>
-                                                    {modifiedDate}
+                                                <Table.Cell className=' text-sm md:text-base'>
+                                                    {new Date(data.updatedAt).toLocaleDateString()}
                                                 </Table.Cell>
 
-                                                <Table.Cell className='flex justify-center'>
+                                                <Table.Cell className='flex justify-center '>
                                                     <NavLink className='text-center' to={`/blog/${data.slug}`}>
                                                         <img src={data.blogImgFile} alt="blogImage" className='w-10 text-center rounded-full h-10 md:w-20 md:rounded-md ' />
                                                     </NavLink>
                                                 </Table.Cell>
 
-                                                <Table.Cell className={`text-sm md:text-base ${theme === 'dark' && 'text-gray-300'}`}>
+                                                <Table.Cell className={`border-l border-r px-20 md:pl-10 text-sm text-justify md:text-base ${theme === 'dark' && 'text-gray-300 border-gray-700'}`}>
                                                     {data.blogTitle}
                                                 </Table.Cell>
 
-                                                <Table.Cell className='text-sm md:text-base'>
+                                                <Table.Cell className='text-sm md:text-base text-justify pl-12'>
                                                     {data.blogCategory}
                                                 </Table.Cell>
 
-                                                <Table.Cell>
-                                                    <NavLink className='text-green-500 hover:underline' to={`/editblog/${data._id}`}>
+                                                <Table.Cell className=''>
+                                                    <NavLink className=' text-green-500 hover:underline' to={`/editblog/${data._id}`}>
                                                         Edit
                                                     </NavLink>
                                                 </Table.Cell>
@@ -124,6 +158,12 @@ const AllBlogs = () => {
                             }
 
                         </Table>
+                        {
+                            showMoreButton &&
+                            <div className="text-center my-5">
+                                <button onClick={showMoreBlogsButton} className={`transition-all active:scale-95 hover:bg-blue-900 py-2 font-semibold text-sm px-2 border-2 rounded-md  ${theme === 'dark' ? 'bg-gray-700 active:bg-gray-800 text-gray-200 border-gray-400' : 'active:bg-gray-600 active:text-white hover:text-white bg-gray-300 text-gray-800 border-gray-500'}`}>Show more..</button>
+                            </div>
+                        }
                     </div>
                     :
                     <>
@@ -131,6 +171,7 @@ const AllBlogs = () => {
                     </>
             }
             <Toaster />
+            
         </>
     )
 }
