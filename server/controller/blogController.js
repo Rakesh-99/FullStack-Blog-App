@@ -12,7 +12,7 @@ import blogModel from "../model/blogModel.js";
 export const getAllBlogs = asyncHandler(async (req, res, next) => {
 
     const page = parseInt(req.query.page) || 1;
-    const limitBlogs = parseInt(req.query.limit) || 6;
+    const limitBlogs = parseInt(req.query.limit) || 9;
     const sortBlog = req.query.sort === 'asc' ? 1 : -1;
     const skipBlogs = (page - 1) * limitBlogs
 
@@ -87,5 +87,31 @@ export const postBlog = asyncHandler(async (req, res, next) => {
         })
     } catch (error) {
         next(errorHandler(error));
+    }
+})
+
+
+
+// Delete Blog : DELETE API : 
+
+export const deleteBlog = asyncHandler(async (req, res, next) => {
+
+    const { isAdmin } = req.body.user;
+    const { blogid, userid } = req.params;
+    
+
+
+    if (isAdmin) {
+        try {
+            await blogModel.findByIdAndDelete({ _id: blogid });
+            return res.status(200).json({
+                success: true,
+                message: 'Blog has been deleted'
+            })
+        } catch (error) {
+            next('An error occurred while deleting the blog!', 400);
+        }
+    } else {
+        return next('You are not allowed to delete the blog', 401);
     }
 })
