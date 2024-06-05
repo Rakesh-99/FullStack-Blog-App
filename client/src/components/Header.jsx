@@ -14,6 +14,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeTheme } from '../features/themeSlice';
 import { signOutSuccess, signOutUserFailure } from '../features/userSlice';
 import axios from 'axios';
+import { CgProfile } from "react-icons/cg";
+import { PiSignOutDuotone } from "react-icons/pi";
+
+
+
+
+
+
 
 const Header = () => {
 
@@ -119,12 +127,25 @@ const Header = () => {
                                 {
                                     dropDown &&
 
-                                    <div className="border  flex flex-col absolute top-9 py-5 px-8 right-3 rounded-sm gap-3 bg-gray-600 text-white z-10">
+                                    <div className={`absolute border-2 z-10 flex transition-all flex-col gap-2 w-28 text-center  rounded-md px-4 py-4 right-5 ${theme === 'dark' ? 'bg-gray-600' : 'bg-white'}`}>
 
-                                        <NavLink to={'/dashboard?tab=profile'} className='hover:text-blue-400 text-sm  font-semibold'>Profile</NavLink>
+
+
+                                        <div className="flex gap-2">
+
+                                            <CgProfile size={20} />
+
+                                            <NavLink to={'/dashboard?tab=profile'} className='hover:text-blue-500 text-sm  font-semibold'>Profile</NavLink>
+                                        </div>
+
                                         <hr />
 
-                                        <button className='hover:text-blue-400 text-sm font-semibold' onClick={() => signOutHandle()}>SignOut</button>
+                                        <div className="flex gap-2">
+                                            <PiSignOutDuotone size={20} />
+                                            <button className='hover:text-blue-500 text-sm font-semibold' onClick={() => signOutHandle()}>SignOut</button>
+                                        </div>
+
+
                                     </div>
                                 }
 
