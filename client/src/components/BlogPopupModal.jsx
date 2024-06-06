@@ -56,8 +56,8 @@ const BlogPopupModal = ({ blogModal, setBlogModal, blogId, setUserBlogs }) => {
                         : "bg-white text-gray-800"
                         }`}
                 >
-                    <button className="place-self-end" onClick={cancelHandle}>
-                        <IoClose size={25} />
+                    <button className="place-self-end transition-all" onClick={cancelHandle}>
+                        <IoClose size={25} className=' active:animate-ping transition-all' />
                     </button>
 
                     <div className="">
@@ -65,14 +65,14 @@ const BlogPopupModal = ({ blogModal, setBlogModal, blogId, setUserBlogs }) => {
                     </div>
 
                     <div className="">
-                        <p className="text-lg text-center">
+                        <p className="text-base text-center">
                             Are you sure you want to delete your blog ?
                         </p>
                     </div>
 
                     <div className="flex gap-4">
                         <button
-                            className={`  rounded-md transition-all active:bg-red-800 font-semibold py-2 px-2 active:scale-95  ${theme === "dark" ? "bg-red-700" : "bg-red-400"
+                            className={`text-sm  rounded-md transition-all active:bg-red-800 font-semibold py-2 px-2 active:scale-95  ${theme === "dark" ? "bg-red-700" : "bg-red-400"
                                 }`}
                             onClick={() => {
                                 deleteBlog();
@@ -82,7 +82,7 @@ const BlogPopupModal = ({ blogModal, setBlogModal, blogId, setUserBlogs }) => {
                         </button>
 
                         <button
-                            className=" border font-semibold  active:scale-95 transition-all bg-transparent rounded-md py-2 px-3 active:bg-gray-600"
+                            className=" border text-sm font-semibold  active:scale-95 transition-all bg-transparent rounded-md py-2 px-3 active:bg-gray-600"
                             onClick={cancelHandle}
                         >
                             No, cancel
