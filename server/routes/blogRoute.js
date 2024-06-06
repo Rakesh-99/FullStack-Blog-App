@@ -1,11 +1,12 @@
 import express from 'express';
 const blogRouter = express.Router();
-import { postBlog, getAllBlogs, deleteBlog } from '../controller/blogController.js';
+import { postBlog, getAllBlogs, deleteBlog, updateBlog } from '../controller/blogController.js';
 import verifyUserMiddleware from '../middleware/verifyUserMiddleware.js';
 
-blogRouter.post('/postblog', verifyUserMiddleware, postBlog)
-    .get('/getallblogs', getAllBlogs)
-    .delete('/deleteblog/:blogid/:userid', verifyUserMiddleware, deleteBlog)
+blogRouter.post('/post-blog', verifyUserMiddleware, postBlog)
+    .get('/get-all-blogs', getAllBlogs)
+    .delete('/delete-blog/:blogid/:userid', verifyUserMiddleware, deleteBlog)
+    .put('/update-blog/:blogid/:userid', verifyUserMiddleware, updateBlog)
 
 
 

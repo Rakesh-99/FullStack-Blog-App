@@ -5,7 +5,7 @@ import { Table, Toast } from "flowbite-react";
 import { NavLink } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import BlogPopupModal from "./BlogPopupModal";
-
+import Spinner from '../assests/spinner/Spinner';
 
 
 
@@ -22,7 +22,7 @@ const AllBlogs = () => {
     const [startPage, setStartPage] = useState(2);
     const [blogModal, setBlogModal] = useState(false);
     const [blogId, setBlogId] = useState('');
-
+    const [loader, setLoader] = useState(false);
 
 
     // Get blogs fetch api : 
@@ -30,11 +30,12 @@ const AllBlogs = () => {
 
         if (user.isAdmin) {
             const getBlogs = async () => {
+                setLoader(true);
                 try {
                     const fetchBlogs = await axios.get(
-                        `http://localhost:8000/api/blog/getallblogs?userId=${user._id}`
+                        `http://localhost:8000/api/blog/get-all-blogs?userId=${user._id}`
                     );
-
+                    setLoader(false)
                     const response = await fetchBlogs.data.blogs;
                     setUserBlogs(response);
 
@@ -44,6 +45,7 @@ const AllBlogs = () => {
                         setShowMoreButton(false);
                     }
                 } catch (error) {
+                    setLoader(false);
                     toast.error("An unexpected error occurred!");
                     console.log(error);
                 }
@@ -88,7 +90,7 @@ const AllBlogs = () => {
 
     return (
         <>
-            {user && user.isAdmin && userBlogs.length > 0 ? (
+            {user && user.isAdmin && userBlogs.length > 0 && (
                 <div className="min-h-screen w-full md:mx-10 table-auto overflow-x-scroll scrollbar">
                     <Table hoverable className={`my-5  `}>
                         <Table.Head
@@ -138,64 +140,74 @@ const AllBlogs = () => {
                             </Table.HeadCell>
                         </Table.Head>
 
-                        {userBlogs.map((data) => {
 
-                            return (
-                                <Table.Body key={data._id} className="">
-                                    <Table.Row
-                                        key={data._id}
-                                        className={` text-center text-xs md:text-sm  transition-all rounded-md  ${theme === "dark"
-                                            ? "hover:bg-slate-700"
-                                            : "hover:bg-slate-200"
-                                            }`}
-                                    >
-                                        <Table.Cell className=" text-xs md:text-sm">
-                                            {new Date(data.updatedAt).toLocaleDateString()}
-                                        </Table.Cell>
 
-                                        <Table.Cell className="flex justify-center ">
-                                            <NavLink
-                                                className="text-center"
-                                                to={`/blog/${data.slug}`}
-                                            >
-                                                <img
-                                                    src={data.blogImgFile}
-                                                    alt="blogImage"
-                                                    className="w-10 text-center rounded-full h-10 md:w-20 md:rounded-md "
-                                                />
-                                            </NavLink>
-                                        </Table.Cell>
+                        {
+                            loader
+                                ? <Spinner />
 
-                                        <Table.Cell
-                                            className={`border-l border-r px-20 md:pl-10 text-xs text-justify md:text-sm ${theme === "dark" && "text-gray-300 border-gray-700"
-                                                }`}
-                                        >
-                                            {data.blogTitle}
-                                        </Table.Cell>
+                                :
+                                <>
+                                    {userBlogs.map((data) => {
 
-                                        <Table.Cell className="text-xs md:text-sm text-justify pl-12">
-                                            {data.blogCategory}
-                                        </Table.Cell>
+                                        return (
+                                            <Table.Body key={data._id} className="">
+                                                <Table.Row
+                                                    key={data._id}
+                                                    className={` text-center text-xs md:text-sm  transition-all rounded-md  ${theme === "dark"
+                                                        ? "hover:bg-slate-700"
+                                                        : "hover:bg-slate-200"
+                                                        }`}
+                                                >
+                                                    <Table.Cell className=" text-xs md:text-sm">
+                                                        {new Date(data.updatedAt).toLocaleDateString()}
+                                                    </Table.Cell>
 
-                                        <Table.Cell className="">
-                                            <NavLink
-                                                className=" text-green-500 hover:underline"
-                                                to={`/editblog/${data._id}`}
-                                            >
-                                                Edit
-                                            </NavLink>
-                                        </Table.Cell>
+                                                    <Table.Cell className="flex justify-center ">
+                                                        <NavLink
+                                                            className="text-center"
+                                                            to={`/blog/${data.slug}`}
+                                                        >
+                                                            <img
+                                                                src={data.blogImgFile}
+                                                                alt="blogImage"
+                                                                className="w-10 text-center rounded-full h-10 md:w-20 md:rounded-md "
+                                                            />
+                                                        </NavLink>
+                                                    </Table.Cell>
 
-                                        <Table.Cell>
-                                            <button
-                                                className="text-red-500 hover:underline" onClick={() => { deleteBlogHandle(data._id) }}>
-                                                Delete
-                                            </button>
-                                        </Table.Cell>
-                                    </Table.Row>
-                                </Table.Body>
-                            );
-                        })}
+                                                    <Table.Cell
+                                                        className={`border-l border-r px-20 md:pl-10 text-xs text-justify md:text-sm ${theme === "dark" && "text-gray-300 border-gray-700"
+                                                            }`}
+                                                    >
+                                                        {data.blogTitle}
+                                                    </Table.Cell>
+
+                                                    <Table.Cell className="text-xs md:text-sm text-justify pl-12">
+                                                        {data.blogCategory}
+                                                    </Table.Cell>
+
+                                                    <Table.Cell className="">
+                                                        <NavLink to={`/update-blog/${data._id}`} className="text-green-500 hover:underline">
+                                                            Edit
+                                                        </NavLink>
+                                                    </Table.Cell>
+
+                                                    <Table.Cell>
+                                                        <button
+                                                            className="text-red-500 hover:underline" onClick={() => { deleteBlogHandle(data._id) }}>
+                                                            Delete
+                                                        </button>
+                                                    </Table.Cell>
+                                                </Table.Row>
+                                            </Table.Body>
+                                        );
+                                    })}
+
+                                </>
+                        }
+
+
                     </Table>
                     {showMoreButton && (
                         <div className="text-center my-5">
@@ -211,10 +223,6 @@ const AllBlogs = () => {
                         </div>
                     )}
                 </div>
-            ) : (
-                <>
-                    <p>No blogs found</p>
-                </>
             )}
             <Toaster />
 

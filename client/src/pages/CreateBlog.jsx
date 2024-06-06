@@ -129,7 +129,7 @@ const CreateBlog = () => {
             try {
 
                 dispatch(addBlogStart());
-                const addBlog = await axios.post(`http://localhost:8000/api/blog/postblog`, formData, {
+                const addBlog = await axios.post(`http://localhost:8000/api/blog/post-blog`, formData, {
                     headers: {
                         Authorization: user.token,
                     },
