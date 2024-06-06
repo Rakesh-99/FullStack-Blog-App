@@ -98,10 +98,10 @@ export const deleteBlog = asyncHandler(async (req, res, next) => {
 
     const { isAdmin } = req.body.user;
     const { blogid, userid } = req.params;
-    
 
 
-    if (isAdmin) {
+
+    if (isAdmin || userid) {
         try {
             await blogModel.findByIdAndDelete({ _id: blogid });
             return res.status(200).json({
