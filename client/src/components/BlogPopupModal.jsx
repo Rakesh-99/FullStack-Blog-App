@@ -11,7 +11,6 @@ import { useSelector } from 'react-redux';
 
 const BlogPopupModal = ({ blogModal, setBlogModal, blogId, setUserBlogs }) => {
 
-    console.log(blogId, blogModal);
 
 
     const { theme } = useSelector((state) => state.themeSliceApp);
