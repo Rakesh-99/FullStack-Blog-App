@@ -16,6 +16,7 @@ import { signOutSuccess, signOutUserFailure } from '../features/userSlice';
 import axios from 'axios';
 import { CgProfile } from "react-icons/cg";
 import { PiSignOutDuotone } from "react-icons/pi";
+import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 
 
 
@@ -154,21 +155,15 @@ const Header = () => {
 
 
                             :
-                            <div className="flex items-center gap-3">
-                                <div className="flex items-center gap-1">
-                                    <span><NavLink className='font-semibold text-base' to={'/login'}>Login</NavLink></span>
-                                    <span><IoIosArrowDropright size={19} /></span>
-                                </div>
-
-                                <NavLink to={'/register'} className=' flex items-center gap-1 bg-blue-600 font-semibold rounded-md px-2 py-2 text-white hover:bg-blue-500'>
-                                    <span>Register</span>
-                                    <span><FaRegUserCircle /></span>
-                                </NavLink>
+                            <div className="">
+                                {location.pathname === `/login` || location.pathname === `/register` ? <></> :
+                                    <NavLink to={'/login'} className='active:scale-95 transition-all flex items-center gap-1 bg-blue-600 font-semibold rounded-md px-2 py-2 text-white hover:bg-blue-700 active:bg-blue-800'>
+                                        <span>Get started</span>
+                                        <span><MdOutlineKeyboardDoubleArrowRight size={20} /></span>
+                                    </NavLink>
+                                }
                             </div>
                     }
-
-
-
                 </div>
 
 
