@@ -1,7 +1,7 @@
 import errorHandler from "../utils/errorHandler.js";
 import asyncHandler from 'express-async-handler';
 import blogModel from "../model/blogModel.js";
-
+import userModel from '../model/userModel.js';
 
 
 
@@ -115,3 +115,33 @@ export const deleteBlog = asyncHandler(async (req, res, next) => {
         return next('You are not allowed to delete the blog', 401);
     }
 })
+
+
+
+
+// Update blog : PUT API 
+
+export const updateBlog = asyncHandler(async (req, res, next) => {
+
+    const user = await userModel.findById(req.params.userid);
+    const blog = await blogModel.findById(req.params.blogid);
+
+    if (user.isAdmin || blog.userId === req.params.userid) {
+        const updatedBlog = await blogModel.findByIdAndUpdate(blog, {
+            $set: {
+                blogTitle: req.body.blogTitle,
+                blogCategory: req.body.blogCategory,
+                blogImgFile: req.body.blogImgFile,
+                blogBody: req.body.blogBody
+            }
+        }, { new: true })
+
+        return res.status(200).json({
+            success: true,
+            message: 'Blog has been updated',
+            blog: updatedBlog
+        })
+    } else {
+        return next(errorHandler('An unexpected error occurred while updating blog!', 401));
+    }
+});
