@@ -128,7 +128,7 @@ const Header = () => {
                                 {
                                     dropDown &&
 
-                                    <div className={`absolute border-2 z-10 flex transition-all flex-col gap-2 w-28 text-center  rounded-md px-4 py-4 right-5 ${theme === 'dark' ? 'bg-gray-600' : 'bg-white'}`}>
+                                    <div className={`absolute border  z-10 flex transition-all flex-col gap-2 w-28 text-center  rounded-md px-4 py-4 right-5 ${theme === 'dark' ? 'bg-zinc-700' : 'bg-white border-2'}`}>
 
 
 

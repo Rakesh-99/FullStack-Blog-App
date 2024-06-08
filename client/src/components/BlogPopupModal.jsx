@@ -50,9 +50,9 @@ const BlogPopupModal = ({ blogModal, setBlogModal, blogId, setUserBlogs }) => {
 
             <div className="fixed inset-0  transition-all backdrop-blur-sm bg-opacity-30 flex justify-center items-center">
                 <div
-                    className={`flex flex-col gap-7 border shadow-md w-80 md:w-96 bg- rounded-md  px-3 justify-center items-center py-5   ${theme === "dark"
-                        ? "bg-gray-900 text-white"
-                        : "bg-white text-gray-800"
+                    className={`flex flex-col gap-7  shadow-md w-80 md:w-96 bg- rounded-md  px-3 justify-center items-center py-5   ${theme === "dark"
+                        ? "bg-zinc-800 text-gray-200"
+                        : "bg-white text-gray-900"
                         }`}
                 >
                     <button className="place-self-end transition-all" onClick={cancelHandle}>
