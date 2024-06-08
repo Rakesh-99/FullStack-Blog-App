@@ -121,19 +121,19 @@ const Register = () => {
           </div>
 
           <div className="flex flex-col gap-1">
-            <label>Username</label>
+            <label className='flex '>Username <span className='font-semibold text-red-400 text-xl'>*</span></label>
             <input type="text" name="username" placeholder='username' value={formData.username} onChange={onInputChange} autoComplete="off" className={`transition-all py-2 px-2 outline-none  rounded-md border border-orange-400 ${theme === 'dark' ? 'bg-gray-700 focus:bg-gray-800' : 'bg-orange-50'} `} />
           </div>
 
 
           <div className="flex flex-col gap-1">
-            <label>Email</label>
+            <label className='flex '>Email <span className='font-semibold text-red-400 text-xl'>*</span></label>
             <input type="email" name="email" placeholder="youremail@gmail.com" className={`transition-all py-2 px-2 outline-none  rounded-md border border-orange-400 ${theme === 'dark' ? 'bg-gray-700 focus:bg-gray-800' : 'bg-orange-50'} `} value={formData.email} onChange={onInputChange} autoComplete="off" />
           </div>
 
 
           <div className="flex flex-col gap-1">
-            <label>Password</label>
+            <label className='flex '>Password <span className='font-semibold text-red-400 text-xl'>*</span></label>
             <input type="password" name="password" placeholder="Password" className={`transition-all py-2 px-2 outline-none  rounded-md border border-orange-400 ${theme === 'dark' ? 'bg-gray-700 focus:bg-gray-800' : 'bg-orange-50'} `} value={formData.password} onChange={onInputChange} autoComplete=" off" />
 
           </div>

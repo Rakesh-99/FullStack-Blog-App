@@ -98,17 +98,17 @@ const Login = () => {
                         <span className="border-2 border-blue-400 rounded-full py-2 px-2">
                             <FaUserCog className="text-blue-400" size={25} />
                         </span>
-                        <h1 className="text-center text-2xl text-blue-400 font-semibold">User Login </h1>
+                        <h1 className="text-center md:text-4xl  text-2xl text-blue-400 font-semibold">Sign in </h1>
                     </div>
 
                     <div className="flex flex-col gap-1">
-                        <label>Email</label>
+                        <label className='flex '>Email <span className='font-semibold text-red-400 text-xl'>*</span></label>
                         <input type="email" name="email" placeholder="youremail@gmail.com" className={`border outline-none  rounded-md py-2 px-3 bg-blue-50 border-blue-400 ${theme === 'dark' && 'bg-gray-700 text-gray-100 focus:bg-gray-800 transition-all'}`} value={formData.email} onChange={onInputChange} autoComplete="off" />
                     </div>
 
 
                     <div className="flex flex-col gap-1">
-                        <label>Password</label>
+                        <label className='flex '>Password <span className='font-semibold text-red-400 text-xl'>*</span></label>
                         <input type="password" name="password" placeholder="Password" className={`border outline-none rounded-md py-2 px-3 border-blue-400 bg-blue-50 ${theme === 'dark' && 'bg-gray-700 focus:bg-gray-800 text-gray-100'}`} value={formData.password} onChange={onInputChange} />
                     </div>
 
