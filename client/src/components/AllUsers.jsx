@@ -10,7 +10,11 @@ import { ImWarning } from "react-icons/im";
 import { IoClose } from "react-icons/io5";
 import toast, { Toaster } from "react-hot-toast";
 
+
+
+
 const AllUsers = () => {
+
     const { user } = useSelector((state) => state.userSliceApp);
     const { theme } = useSelector((state) => state.themeSliceApp);
     const [loader, setLoader] = useState(false);
@@ -18,28 +22,36 @@ const AllUsers = () => {
     const [getAllUsers, setAllUsers] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [userId, setUserId] = useState("");
+    const [startPage, setStartPage] = useState(3);
 
 
 
 
+    // Fetch user :
     useEffect(() => {
-        const getUsers = async () => {
-            try {
-                const userInfo = await axios.get(
-                    `http://localhost:8000/api/user/getusers`,
-                    {
-                        headers: {
-                            Authorization: user.token,
-                        },
+        if (user.isAdmin) {
+            const getUsers = async () => {
+                try {
+                    const userInfo = await axios.get(
+                        `http://localhost:8000/api/user/getusers`,
+                        {
+                            headers: {
+                                Authorization: user.token,
+                            },
+                        }
+                    );
+                    const response = userInfo.data.user;
+                    setAllUsers(response);
+                    if (response.length > 8) {
+                        setShowMoreButton(true)
                     }
-                );
-                const response = userInfo.data.user;
-                setAllUsers(response);
-            } catch (error) {
-                console.log(error.message);
-            }
-        };
-        getUsers();
+
+                } catch (error) {
+                    console.log(error.message);
+                }
+            };
+            getUsers();
+        }
     }, []);
 
 
@@ -52,8 +64,8 @@ const AllUsers = () => {
         setShowModal(false);
     };
 
-    //   Delete user Api :
 
+    //   Delete user Api :
     const deleteUser = async () => {
 
         try {
@@ -79,12 +91,40 @@ const AllUsers = () => {
 
     }
 
-    console.log(getAllUsers);
+
+    const showMoreUserButton = async () => {
+
+        setStartPage(startPage + 1);
+
+        try {
+            const showMoreUser = await axios.get(`http://localhost:8000/api/user/getusers?page=${startPage}`, {
+                headers: {
+                    Authorization: user.token
+                }
+            })
+            if (showMoreUser.status === 200) {
+                console.log(showMoreUser.data.user);
+
+                if (showMoreUser.data.user.length > 0) {
+                    setStartPage((prevPage) => prevPage + 1)
+                    setAllUsers([...prevUsers, ...showMoreUser.data.user]);
+                } else {
+                    setShowMoreButton(false);
+                }
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+
+
+
+
     return (
         <>
             {getAllUsers.length > 0 && (
                 <div className="min-h-screen w-full md:mx-10 table-auto overflow-x-scroll scrollbar">
-                    <Table hoverable className={`my-5  `}>
+                    <Table hoverable className={`my-5`}>
                         <Table.Head
                             className={` text-base   ${theme === "dark" ? "text-gray-100" : "text-gray-700"
                                 } `}
@@ -198,7 +238,7 @@ const AllUsers = () => {
                     {showMoreButton && (
                         <div className="text-center my-5">
                             <button
-                                onClick={showMoreBlogsButton}
+                                onClick={showMoreUserButton}
                                 className={`transition-all active:scale-95 hover:bg-blue-900 py-2 font-semibold text-sm px-2 border-2 rounded-md  ${theme === "dark"
                                     ? "bg-gray-700 active:bg-gray-800 text-gray-200 border-gray-400"
                                     : "active:bg-gray-600 active:text-white hover:text-white bg-gray-300 text-gray-800 border-gray-500"
@@ -210,7 +250,8 @@ const AllUsers = () => {
                     )}
                 </div>
             )}
-            {/* Modal for deleting the user */}
+
+            {/* Showing Modal before deleting the user */}
             {showModal && (
                 <div className="fixed inset-0  transition-all backdrop-blur-sm bg-opacity-30 flex justify-center items-center">
                     <div
