@@ -24,23 +24,19 @@ const Home = () => {
             <p className='text-sm text-justify  leading-8'>
               Discover the latest insights in technology and programming through my compelling blogs. Covering Java, JavaScript, and more, I delve into various topics to keep you informed and engaged. Join and explore the ever-evolving landscape of digital innovation! Here you'll find a variety of articles  on topics such as web development, software engineering, and programming languages
             </p>
-
-            <button className='w-96 hover:border-blue-400 transition-all hover:text-blue-400 border-b py-3 border-yellow-300 '>View all posts</button>
-
           </div>
 
 
 
           {/* Right content  */}
 
-          <div className="w-52 md:w-96 border-2 border-yellow-300 items-center flex justify-center py-2 px-2 rounded-full hover:animate-pulse cursor-pointer">
-            <img src={heroImg} alt="" />
+          <div className="w-52 md:w-1/3  flex-col items-center flex justify-center cursor-not-allowed">
+            <img src={heroImg} className='w-full' />
+            <button className='w-96 hover:border-blue-400 transition-all hover:text-blue-400 border-b-2 py-3 border-yellow-300 '>View all posts</button>
           </div>
-
         </div>
-
       </div>
     </>
   )
 }
-export default Home
+export default Home;

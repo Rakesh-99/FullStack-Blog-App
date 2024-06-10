@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 
 
 
-const BlogPopupModal = ({ blogModal, setBlogModal, blogId, setUserBlogs }) => {
+const BlogPopupModal = ({ setBlogModal, blogId, setUserBlogs }) => {
 
 
 
