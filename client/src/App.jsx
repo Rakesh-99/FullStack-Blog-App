@@ -16,6 +16,7 @@ import PrivateRoute from './components/PrivateRoute';
 import AdminPrivateRoute from './components/AdminPrivateRoute';
 import CreateBlog from './pages/CreateBlog';
 import UpdateBlog from './pages/UpdateBlog';
+import ShowBlog from './pages/ShowBlog';
 
 
 
@@ -38,6 +39,7 @@ const App = () => {
                                 <Route path='/contact' element={<Contact />} />
                                 <Route path='/register' element={<Register />} />
                                 <Route path='/login' element={<Login />} />
+                                <Route path='/blog/:blogSlug' element=<ShowBlog /> />
 
                                 <Route element={<PrivateRoute />}>
                                     <Route path='/dashboard' element={<Dashboard />} />
