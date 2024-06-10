@@ -189,6 +189,51 @@ const Header = () => {
                     </div>
 
 
+                    {
+                        user ?
+                            <div className=" cursor-pointer relative" onClick={() => setDropDown(!dropDown)}>
+                                <img src={user && user.profilePicture} alt="img" className='w-10 h-10 border-2 border-blue-500 rounded-full' />
+
+                                {/* Dropdown Menu  */}
+
+                                {
+                                    dropDown &&
+
+                                    <div className={`absolute border  z-10 flex transition-all flex-col gap-2 w-28 text-center  rounded-md px-4 py-4 right-5 ${theme === 'dark' ? 'bg-zinc-700' : 'bg-white border-2'}`}>
+
+
+
+                                        <div className="flex gap-2">
+
+                                            <CgProfile size={20} />
+
+                                            <NavLink to={'/dashboard?tab=profile'} className='hover:text-blue-500 text-sm  font-semibold'>Profile</NavLink>
+                                        </div>
+
+                                        <hr />
+
+                                        <div className="flex gap-2">
+                                            <PiSignOutDuotone size={20} />
+                                            <button className='hover:text-blue-500 text-sm font-semibold' onClick={() => signOutHandle()}>SignOut</button>
+                                        </div>
+
+
+                                    </div>
+                                }
+
+                            </div>
+
+                            :
+                            <div className="">
+                                {location.pathname === `/login` || location.pathname === `/register` ? <></> :
+                                    <NavLink to={'/login'} className='active:scale-95 transition-all flex items-center gap-1 bg-blue-600 font-semibold rounded-md px-2 py-2 text-white hover:bg-blue-700 active:bg-blue-800'>
+                                        <span>Get started</span>
+                                        <span><MdOutlineKeyboardDoubleArrowRight size={20} /></span>
+                                    </NavLink>
+                                }
+                            </div>
+                    }
+
                     <div className=' cursor-pointer transition-all'>
                         <span className=" h-6 flex items-center active:animate-spin transition-all" onClick={() => setToggleNavBtn(!toggleNavBtn)}>
                             {
@@ -196,6 +241,8 @@ const Header = () => {
                             }
                         </span>
                     </div>
+
+
 
                 </div>
 
