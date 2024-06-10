@@ -6,8 +6,7 @@ import { CiLogout } from "react-icons/ci";
 import { signOutSuccess, signOutUserFailure } from '../features/userSlice';
 import axios from 'axios';
 import { MdPostAdd } from "react-icons/md";
-import { CgMenuGridO } from "react-icons/cg";
-import { IoCloseCircle } from "react-icons/io5";
+import { FaUsersCog } from "react-icons/fa";
 
 const DashboardSidebar = () => {
 
@@ -57,13 +56,7 @@ const DashboardSidebar = () => {
         <>
             <div className={`transition-all border w-full py-4 border-r   md:w-60  md:min-h-screen ${theme === 'dark' ? 'border-slate-700' : 'border-gray-300'}`} >
 
-
-
-
                 <NavLink to={'?tab=profile'} className={`flex mb-4 items-center justify-center gap-2 cursor-pointer transition-all ${tab === 'profile' && 'bg-gray-600 mx-3 text-white rounded-md py-2 '}`} >
-
-
-
                     <span><CgProfile size={25} /></span>
                     <div className='flex gap-2 items-center'>
                         <p>Profile</p>
@@ -74,24 +67,32 @@ const DashboardSidebar = () => {
                 </NavLink>
 
 
-                {/* Conditionally rendering for admin access only  */}
+                {/* Conditionally rendering for admin access only   */}
                 {
                     user && user.isAdmin
                     &&
-                    <NavLink to={'?tab=blogs'} className={`flex  justify-center gap-2 items-center my-4 ${tab === 'blogs' && 'bg-gray-600 mx-3 text-white rounded-md py-2 '}`}>
+                    <NavLink to={'?tab=blogs'} className={`flex transition-all  justify-center gap-2 items-center my-4 ${tab === 'blogs' && 'bg-zinc-700 mx-3 text-white rounded-md py-2 '}`}>
                         <span><MdPostAdd size={25} /></span>
-                        <span>All Blogs</span>
+                        <span>Blogs</span>
                     </NavLink>
                 }
 
+                {
+                    user && user.isAdmin
+                    &&
+                    <NavLink to={`?tab=users`} className={`flex transition-all  justify-center gap-2 items-center my-4 ${tab === 'users' && 'bg-zinc-700 mx-3 text-white rounded-md py-2 '}`}>
+                        <span><FaUsersCog size={23} /></span>
+                        <span>Users</span>
+                    </NavLink>
+                }
 
                 <div className="flex items-center justify-center gap-2 cursor-pointer" onClick={signOutHandle}>
                     <span><CiLogout size={22} /></span>
                     <span>Sign out</span>
                 </div>
 
-            </div>
+            </div >
         </>
     )
 }
-export default DashboardSidebar
+export default DashboardSidebar;

@@ -3,6 +3,7 @@ import DashboardProfile from "../components/DashboardProfile"
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import AllBlogs from '../components/AllBlogs';
+import AllUsers from "../components/AllUsers";
 
 
 const Dashboard = () => {
@@ -44,8 +45,14 @@ const Dashboard = () => {
                     {tab === 'profile' && <DashboardProfile />}
                 </div>
 
+                {/* All blog  */}
                 <div className={`${tab === 'blogs' && 'flex w-full'}`}>
                     {tab === 'blogs' && <AllBlogs />}
+                </div>
+
+                {/* All users   */}
+                <div className={`${tab === 'users' && 'flex w-full'}`}>
+                    {tab === 'users' && <AllUsers />}
                 </div>
             </div>
         </>
