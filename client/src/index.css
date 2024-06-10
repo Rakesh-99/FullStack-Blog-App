@@ -2,7 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+.ql-editor {
+  font-size: 1rem;
+}
+.blog-content h1 {
+  font-size: 33px;
+  margin: 10px 0;
+}
+.blog-content h2 {
+  font-size: 27px;
+  margin: 10px 0;
+}
 
-.ql-editor{
-    font-size: 1rem;
+.blog-content a {
+  color: rgb(66, 66, 255);
+}
+.blog-content a:hover {
+  text-decoration: underline;
 }
