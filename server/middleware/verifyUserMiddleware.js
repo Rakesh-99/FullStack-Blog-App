@@ -8,7 +8,6 @@ import asyncHandler from 'express-async-handler';
 const verifyUserMiddleware = asyncHandler(async (req, res, next) => {
 
     const token = req.headers.authorization;
-
     if (!token) {
         return next(errorHandler('Unauthorized Access, Token not found!', 401));
     }
