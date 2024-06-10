@@ -11,7 +11,9 @@ import userRouter from './routes/userRoute.js';
 import errorMiddleware from './middleware/errorMiddleware.js';
 import cookieParser from 'cookie-parser';
 import blogRouter from './routes/blogRoute.js';
+import path from 'path';
 
+const __dirname = path.resolve();
 
 
 
@@ -21,6 +23,12 @@ app.use(cors());
 app.use('/api/user', userRouter);
 app.use('/api/blog', blogRouter);
 app.use(errorMiddleware);
+
+app.use(express.static(path.join(__dirname, '/client/dist')));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'))
+});
 
 
 
