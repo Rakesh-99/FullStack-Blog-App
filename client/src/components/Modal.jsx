@@ -27,7 +27,7 @@ const Modal = ({ setShowModal, user }) => {
 
         try {
             dispatch(deleteUserStart());
-            const deleteUserInfo = await axios.delete(`http://localhost:8000/api/user/deleteuser/${user._id}`, {
+            const deleteUserInfo = await axios.delete(`/api/user/deleteuser/${user._id}`, {
 
                 data: {
                     user: user

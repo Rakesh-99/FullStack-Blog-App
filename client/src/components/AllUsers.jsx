@@ -33,7 +33,7 @@ const AllUsers = () => {
             const getUsers = async () => {
                 try {
                     const userInfo = await axios.get(
-                        `http://localhost:8000/api/user/getusers`,
+                        `/api/user/getusers`,
                         {
                             headers: {
                                 Authorization: user.token,
@@ -71,7 +71,7 @@ const AllUsers = () => {
         try {
             setShowModal(false)
 
-            const userDelete = await axios.delete(`http://localhost:8000/api/user/deleteuser/${userId}`, {
+            const userDelete = await axios.delete(`/api/user/deleteuser/${userId}`, {
 
                 data: {
                     user: user
@@ -97,7 +97,7 @@ const AllUsers = () => {
         setStartPage(startPage + 1);
 
         try {
-            const showMoreUser = await axios.get(`http://localhost:8000/api/user/getusers?page=${startPage}`, {
+            const showMoreUser = await axios.get(`/api/user/getusers?page=${startPage}`, {
                 headers: {
                     Authorization: user.token
                 }

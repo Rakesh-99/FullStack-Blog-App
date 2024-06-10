@@ -25,7 +25,7 @@ const BlogPopupModal = ({ setBlogModal, blogId, setUserBlogs }) => {
     const deleteBlog = async () => {
 
         try {
-            const deleteBlogInfo = await axios.delete(`http://localhost:8000/api/blog/delete-blog/${blogId}/${user._id}`, {
+            const deleteBlogInfo = await axios.delete(`/api/blog/delete-blog/${blogId}/${user._id}`, {
                 data: {
                     user: user
                 },

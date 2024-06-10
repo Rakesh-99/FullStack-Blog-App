@@ -101,7 +101,7 @@ const DashboardProfile = () => {
             // UpdateUser profile Api 
 
             dispatch(userUpdateStart());
-            const updateUser = await axios.put(`http://localhost:8000/api/user/updateuser/${user._id}`, formData, {
+            const updateUser = await axios.put(`/api/user/updateuser/${user._id}`, formData, {
                 headers: {
                     Authorization: user.token
                 }
@@ -128,7 +128,7 @@ const DashboardProfile = () => {
     const signOutHandle = async () => {
 
         try {
-            const signOutUser = await axios.post(`http://localhost:8000/api/user/signoutuser`);
+            const signOutUser = await axios.post(`/api/user/signoutuser`);
 
             if (signOutUser.data.success === true) {
                 dispatch(signOutSuccess())

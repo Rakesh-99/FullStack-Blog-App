@@ -80,7 +80,7 @@ const Register = () => {
 
       try {
         setLoading(true);
-        const registerUser = await axios.post(`http://localhost:8000/api/user/register`, formData);
+        const registerUser = await axios.post(`/api/user/register`, formData);
         setLoading(false);
         toast.success(registerUser.data.message);
         setTimeout(() => {

@@ -36,7 +36,7 @@ const DashboardSidebar = () => {
     const signOutHandle = async () => {
 
         try {
-            const signOutUser = await axios.post(`http://localhost:8000/api/user/signoutuser`);
+            const signOutUser = await axios.post(`/api/user/signoutuser`);
 
             if (signOutUser.data.success === true) {
                 dispatch(signOutSuccess());

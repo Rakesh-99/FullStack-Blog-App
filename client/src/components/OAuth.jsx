@@ -38,7 +38,7 @@ const OAuth = () => {
             }
 
             dispatch(loginStart());
-            const addGoogleUser = await axios.post('http://localhost:8000/api/user/googleuser', userData);
+            const addGoogleUser = await axios.post('/api/user/googleuser', userData);
             if (addGoogleUser.data.user) {
                 dispatch(loginSuccess(addGoogleUser.data.user));
                 navigate('/');

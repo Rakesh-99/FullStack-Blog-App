@@ -19,7 +19,7 @@ const AllBlogs = () => {
     const { theme } = useSelector((state) => state.themeSliceApp);
     const [userBlogs, setUserBlogs] = useState([]);
     const [showMoreButton, setShowMoreButton] = useState(false);
-    const [startPage, setStartPage] = useState(2);
+    const [startPage, setStartPage] = useState(1);
     const [blogModal, setBlogModal] = useState(false);
     const [blogId, setBlogId] = useState('');
     const [loader, setLoader] = useState(false);
@@ -33,7 +33,7 @@ const AllBlogs = () => {
                 setLoader(true);
                 try {
                     const fetchBlogs = await axios.get(
-                        `http://localhost:8000/api/blog/get-all-blogs?userId=${user._id}`
+                        `/api/blog/get-all-blogs?userId=${user._id}`
                     );
                     setLoader(false)
                     const response = await fetchBlogs.data.blogs;
@@ -63,7 +63,7 @@ const AllBlogs = () => {
 
         try {
             const response = await axios.get(
-                `http://localhost:8000/api/blog/getallblogs?userId=${user._id}&page=${startPage}`
+                `/api/blog/getallblogs?userId=${user._id}&page=${startPage}`
             );
             if (response.status === 200) {
                 setUserBlogs([...userBlogs, ...response.data.blogs]);

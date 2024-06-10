@@ -65,7 +65,7 @@ const Login = () => {
             try {
                 dispatch(loginStart());
 
-                const loginUser = await axios.post(`http://localhost:8000/api/user/login`, formData);
+                const loginUser = await axios.post(`/api/user/login`, formData);
                 const response = loginUser.data.user;
                 dispatch(loginSuccess(response));
                 navigate('/');

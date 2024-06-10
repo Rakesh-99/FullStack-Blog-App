@@ -105,7 +105,7 @@ const UpdateBlog = () => {
 
     const fetchBlog = async () => {
         try {
-            const getBlog = await axios.get(`http://localhost:8000/api/blog/get-all-blogs?blogId=${blogId}`);
+            const getBlog = await axios.get(`/api/blog/get-all-blogs?blogId=${blogId}`);
 
             if (getBlog.status === 200) {
                 const response = getBlog.data.blogs[0];
@@ -141,7 +141,7 @@ const UpdateBlog = () => {
             // PUT req for updating the blog :
             try {
                 dispatch(updateBlogStart());
-                const updateBlog = await axios.put(`http://localhost:8000/api/blog/update-blog/${blogId}/${user._id}`, formData, {
+                const updateBlog = await axios.put(`/api/blog/update-blog/${blogId}/${user._id}`, formData, {
                     headers: {
                         Authorization: user.token,
                     },
