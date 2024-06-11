@@ -121,7 +121,7 @@ const Header = () => {
                     {
                         user ?
                             <div className=" cursor-pointer relative" onClick={() => setDropDown(!dropDown)}>
-                                <img src={user && user.profilePicture} alt="img" className='w-10 h-10 border-2 border-blue-500 rounded-full' />
+                                <img src={user && user.profilePicture} alt="img" className='w-10 h-10 border rounded-full' />
 
                                 {/* Dropdown Menu  */}
 
