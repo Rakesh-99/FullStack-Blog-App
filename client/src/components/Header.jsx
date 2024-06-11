@@ -121,7 +121,7 @@ const Header = () => {
                     {
                         user ?
                             <div className=" cursor-pointer relative" onClick={() => setDropDown(!dropDown)}>
-                                <img src={user && user.profilePicture} alt="img" className='w-10 h-10 border rounded-full' />
+                                <img src={user && user.profilePicture} className='md:w-11 md:h-11 rounded-full' />
 
                                 {/* Dropdown Menu  */}
 
@@ -192,29 +192,29 @@ const Header = () => {
                     {
                         user ?
                             <div className=" cursor-pointer relative" onClick={() => setDropDown(!dropDown)}>
-                                <img src={user && user.profilePicture} alt="img" className='w-10 h-10 border-2 border-blue-500 rounded-full' />
+                                <img src={user && user.profilePicture} className='w-9 h-9 rounded-full' />
 
                                 {/* Dropdown Menu  */}
 
                                 {
                                     dropDown &&
 
-                                    <div className={`absolute border  z-10 flex transition-all flex-col gap-2 w-28 text-center  rounded-md px-4 py-4 right-5 ${theme === 'dark' ? 'bg-zinc-700' : 'bg-white border-2'}`}>
+                                    <div className={`absolute border  z-10 flex transition-all flex-col w-36 gap-1 text-center  rounded-md px-4 py-4 right-0 top-14 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-slate-200 border border-gray-400'}`}>
 
 
 
-                                        <div className="flex gap-2">
+                                        <div className={`flex gap-2 py-2 items-center transition-all  px-2 rounded-md ${theme === 'dark' ? 'hover:bg-gray-600' : 'hover:bg-gray-400 hover:text-white'}`}>
 
                                             <CgProfile size={20} />
 
-                                            <NavLink to={'/dashboard?tab=profile'} className='hover:text-blue-500 text-sm  font-semibold'>Profile</NavLink>
+                                            <NavLink className={`transition-all `} to={'/dashboard?tab=profile'}>Profile</NavLink>
                                         </div>
 
                                         <hr />
 
-                                        <div className="flex gap-2">
+                                        <div className={`flex gap-2 py-2 px-2 items-center transition-all rounded-md ${theme === 'dark' ? 'hover:bg-gray-600' : 'hover:bg-gray-400 hover:text-white'}`}>
                                             <PiSignOutDuotone size={20} />
-                                            <button className='hover:text-blue-500 text-sm font-semibold' onClick={() => signOutHandle()}>SignOut</button>
+                                            <button className='text-sm transition-all ' onClick={() => signOutHandle()}>SignOut</button>
                                         </div>
 
 
