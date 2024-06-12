@@ -17,7 +17,7 @@ import axios from 'axios';
 import { CgProfile } from "react-icons/cg";
 import { PiSignOutDuotone } from "react-icons/pi";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
-
+import { motion } from 'framer-motion';
 
 
 
@@ -69,11 +69,9 @@ const Header = () => {
 
 
     return (
+
         <>
-
-
-
-            <nav className={` shadow-sm md:px-10 px-2 py-4 ${theme === 'dark' && 'shadow-lg border-b border-gray-700'}`}>
+            <nav className={` shadow-sm md:px-10 px-2 py-2 ${theme === 'dark' && 'shadow-lg border-b border-gray-700'}`}>
 
                 {/* For larger screen devices : */}
 
@@ -81,22 +79,34 @@ const Header = () => {
 
 
                     <NavLink className="flex items-center gap-1 cursor-pointer" to={'/'}>
-                        <h1 className='text-lg font-bold'>RKP.</h1>
-                        <span className='text-xl font-semibold py-1 px-4 text-white rounded-md bg-gradient-to-r from-indigo-500 via-blue-500 to-purple-500 hover:from-pink-500 hover:to-yellow-500'>DEV</span>
+                        <motion.h1 className='text-lg font-bold'
+                            initial={{ y1: 1000 }}
+                            animate={{ y: [-20, 0] }}
+                            transition={{
+                                duration: 1,
+                                delay: 0
+                            }}
+                        >Code</motion.h1>
+                        <motion.h1 className='text-xl font-semibold px-4 py-1 text-white rounded-md bg-gradient-to-r from-blue-400 via-blue-500 to-blue-000 '
+                        >Vault</motion.h1>
                     </NavLink>
 
                     <div className="flex gap-5 font-semibold">
 
 
 
-                        <div className="flex items-center">
-                            <span><CgUserlane size={20} className={`${location.pathname === '/about' && 'text-blue-600'}`} /></span>
-                            <NavLink className={`${location.pathname === '/about' && 'border-b-2 border-blue-600 text-blue-600'}`} to={'/about'}>About</NavLink>
-                        </div>
-
-                        <div className="flex items-center">
-                            <span><MdOutlineContactMail size={18} className={`${location.pathname === '/contact' && 'text-blue-600'}`} /></span>
-                            <NavLink className={`${location.pathname === '/contact' && 'border-b-2 border-blue-600 text-blue-600'}`} to={'/contact'}>Contact</NavLink>
+                        <div className="flex gap-1 text-sm items-center">
+                            <span><CgUserlane size={20} className={`${location.pathname === '/about' && 'text-blue-00'}`} /></span>
+                            <NavLink className={` ${location.pathname === '/about' && 'border-b-2 border-blue-600 text-blue-400'}`} to={'/about'}>
+                                <motion.p
+                                    initial={{ y1: 1000 }}
+                                    animate={{ y: [-20, 0] }}
+                                    transition={{
+                                        duration: 1,
+                                        delay: 0
+                                    }}>Who am I ?
+                                </motion.p>
+                            </NavLink>
                         </div>
                     </div>
 
@@ -173,8 +183,8 @@ const Header = () => {
 
                     <div className="">
                         <NavLink className="flex items-center gap-1 cursor-pointer" to={'/'}>
-                            <h1 className='text-base font-bold'>RKP.</h1>
-                            <span className='text-xl font-semibold py-1 px-2 text-white rounded-md bg-gradient-to-r from-indigo-500 via-blue-500 to-purple-500 hover:from-pink-500 hover:to-yellow-500'>DEV</span>
+                            <h1 className='text-base font-bold'>Code</h1>
+                            <span className='text-xl font-semibold py-1 px-2 text-white rounded-md bg-gradient-to-r from-blue-400 via-blue-600 to-blue-000 hover:from-pink-500 hover:to-yellow-500'>VAULT</span>
                         </NavLink>
                     </div>
 
@@ -253,7 +263,7 @@ const Header = () => {
 
                         <div className="flex items-center gap-1">
                             <span><CgUserlane size={20} className={`${location.pathname === '/about' && 'text-blue-600'}`} /></span>
-                            <NavLink to={'/about'} className={location.pathname === '/about' && 'border-b-2 border-blue-600 text-blue-600'} onClick={() => setToggleNavBtn(!toggleNavBtn)}>About</NavLink>
+                            <NavLink to={'/about'} className={location.pathname === '/about' && 'border-b-2 border-blue-600 text-blue-600'} onClick={() => setToggleNavBtn(!toggleNavBtn)}>Who am I ?</NavLink>
                         </div>
 
                         <div className="flex items-center gap-1">
