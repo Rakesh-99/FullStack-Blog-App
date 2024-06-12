@@ -151,19 +151,19 @@ const DashboardProfile = () => {
 
     return (
         <>
-            <div className="flex flex-col md:flex-row md:justify-center min-h-screen items-center gap-10  w-full md:pt-0">
+            <div className="flex flex-col md:flex-row md:justify-center min-h-screen items-center md:gap-10  w-full md:pt-0">
 
                 {/* Left Side content  */}
-                <div className="md:w-96 w-72">
+                <div className="md:w-2/5 w-80 md:pt-20 flex items-center">
                     <img src={updateUserImg} alt="" className='w-full ' />
                 </div>
 
 
                 {/* Right Side Content  */}
                 <div className="">
-                    <div className=' mb-10 flex justify-center items-center gap-4'>
-                        <span className='border-2 border-yellow-500 rounded-full py-1 px-1'><LiaUserEditSolid size={25} className='text-yellow-400' /></span>
-                        <h1 className='text-2xl text-yellow-400'>Update User</h1>
+                    <div className=' flex justify-center items-center gap-4'>
+                        <span className='border-2 border-violet-500 rounded-full py-1 px-1'><LiaUserEditSolid size={25} className='text-violet-400' /></span>
+                        <h1 className='text-2xl text-violet-400'>Update User</h1>
                     </div>
 
                     <form className='flex flex-col items-center' onSubmit={submitHandle}>
@@ -187,20 +187,20 @@ const DashboardProfile = () => {
 
                         <div className="flex flex-col gap-4">
 
-                            <input type="text" placeholder="Update username" className={`md:w-96 w-80 rounded-md py-2 px-3 outline-none border border-yellow-500 text-black 
+                            <input type="text" placeholder="Update username" className={`md:w-96 w-80 rounded-md py-2 px-3 outline-none border border-violet-500 text-black 
                             
                             ${theme === 'dark' && 'bg-gray-700 text-gray-100'}
 
                             `} name='username' onChange={inputInfoChange} defaultValue={user.username} />
 
-                            <input type="email" placeholder="Update email" className={`md:w-96 w-80 rounded-md py-2 px-3 outline-none border border-yellow-500 text-black
+                            <input type="email" placeholder="Update email" className={`md:w-96 w-80 rounded-md py-2 px-3 outline-none border border-violet-500 text-black
                             
                             ${theme === 'dark' && 'bg-gray-700 text-gray-100'}
 
                             
                             `} name='email' onChange={inputInfoChange} defaultValue={user.email} />
 
-                            <input type="password" placeholder="Update password" className={`md:w-96 w-80 rounded-md py-2 px-3 outline-none border border-yellow-500 text-black
+                            <input type="password" placeholder="Update password" className={`md:w-96 w-80 rounded-md py-2 px-3 outline-none border border-violet-500 text-black
                             
                             ${theme === 'dark' && 'bg-gray-700 text-gray-100'}
                             
@@ -208,7 +208,7 @@ const DashboardProfile = () => {
                         </div>
 
                         <div className="">
-                            <button type='submit' className="py-2  md:w-96 w-80 border border-yellow-400 font-semibold my-4 rounded-md active:scale-95 transition-all hover:bg-yellow-500">Update</button>
+                            <button type='submit' className="py-2  md:w-96 w-80 border border-violet-400 font-semibold my-4 rounded-md active:scale-95 transition-all hover:bg-violet-500">Update</button>
 
                             <div className="text-red-500 text-sm w-full flex justify-between">
                                 <span className='cursor-pointer font-semibold' onClick={deleteHandle}>Delete User</span>
