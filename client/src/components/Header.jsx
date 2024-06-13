@@ -245,9 +245,9 @@ const Header = () => {
                     }
 
                     <div className=' cursor-pointer transition-all'>
-                        <span className=" h-6 flex items-center active:animate-spin transition-all" onClick={() => setToggleNavBtn(!toggleNavBtn)}>
+                        <span className=" h-6 flex items-center  transition-all" onClick={() => setToggleNavBtn(!toggleNavBtn)}>
                             {
-                                toggleNavBtn ? <AiOutlineClose size={20} className='active:animate-spin' /> : <RxHamburgerMenu size={20} className='active:animate-spin' />
+                                toggleNavBtn ? <AiOutlineClose size={20} className='active:animate-ping transition-all' /> : <RxHamburgerMenu size={20} className='active:animate-ping transition-all' />
                             }
                         </span>
                     </div>
