@@ -99,11 +99,11 @@ const Register = () => {
 
   return (
     <>
-      <div className="md:flex-row flex-col flex gap-10 items-center justify-center py-14 min-h-screen">
+      <div className="md:flex-row flex-col flex gap-10 items-center justify-center min-h-screen">
 
 
         {/* Left Content  */}
-        <div className="md:w-1/3 w-60">
+        <div className="md:w-1/3 w-80">
           <img src={registerImg} alt="registerImg" className="" />
         </div>
 

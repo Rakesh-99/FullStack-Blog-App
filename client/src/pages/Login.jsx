@@ -81,10 +81,10 @@ const Login = () => {
 
     return (
         <>
-            <div className="md:flex-row flex-col flex md:gap-10  items-center mt-16 md:mt-0 md:justify-center min-h-screen ">
+            <div className="md:flex-row flex-col flex md:gap-10  items-center md:justify-center min-h-screen ">
 
                 {/* Left Content  */}
-                <div className="md:w-1/3 w-60">
+                <div className="md:w-1/3 w-80">
                     <img src={loginImg} alt="loginImg" className="" />
                 </div>
 
