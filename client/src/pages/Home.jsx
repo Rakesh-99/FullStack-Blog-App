@@ -52,9 +52,9 @@ const Home = () => {
 
           {/* Right content  */}
 
-          <div className="w-52 md:w-1/3  flex-col items-center flex justify-center cursor-not-allowed">
+          <div className="w-96  flex-col items-center flex justify-center cursor-not-allowed">
             <img src={heroImg} className='w-full' />
-            <button className='w-96 hover:border-blue-400 transition-all hover:text-blue-400 border-b-2 py-3 border-yellow-300 '>View all posts</button>
+
           </div>
         </div>
       </div>

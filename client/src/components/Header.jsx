@@ -78,7 +78,7 @@ const Header = () => {
                 <div className='md:flex hidden justify-between z-10'>
 
 
-                    <NavLink className="flex items-center gap-1 cursor-pointer" to={'/'}>
+                    <NavLink className="flex items-center cursor-pointer" to={'/'}>
                         <motion.h1 className='text-lg font-bold'
                             initial={{ y1: 1000 }}
                             animate={{ y: [-20, 0] }}
@@ -86,9 +86,9 @@ const Header = () => {
                                 duration: 1,
                                 delay: 0
                             }}
-                        >Code</motion.h1>
-                        <motion.h1 className='text-xl font-semibold px-4 py-1 text-white rounded-md bg-gradient-to-r from-blue-400 via-blue-500 to-blue-000 '
-                        >Vault</motion.h1>
+                        >RKP.</motion.h1>
+                        <motion.h1 className='text-xl font-semibold px-2  text-white rounded-md bg-gradient-to-r from-blue-400 via-blue-500 to-blue-000 '
+                        >DEV</motion.h1>
                     </NavLink>
 
                     <div className="flex gap-5 font-semibold">
@@ -104,7 +104,7 @@ const Header = () => {
                                     transition={{
                                         duration: 1,
                                         delay: 0
-                                    }}>Who am I ?
+                                    }}>About me
                                 </motion.p>
                             </NavLink>
                         </div>
@@ -116,14 +116,14 @@ const Header = () => {
                         <IoMdSearch size={19} color='gray' className='absolute right-2' />
                     </div>
 
-                    <div className="flex items-center cursor-pointer rounded-full px-2   border-2 border-blue-400" onClick={themeToggle}>
+                    <div className="flex items-center cursor-pointer rounded-full px-2" onClick={themeToggle}>
 
                         <span className=''>
                             {
                                 toggleTheme
                                     ?
-                                    <HiMoon size={22} className='active:animate-spin' />
-                                    : <LuSunMedium size={22} className='active:animate-spin' />
+                                    <HiMoon size={28} className='active:animate-spin active:bg-gray-300 transition-all rounded-full py-1 px-1' />
+                                    : <LuSunMedium size={28} className='active:animate-spin ' />
                             }
                         </span>
                     </div>
@@ -179,12 +179,22 @@ const Header = () => {
 
                 {/* For smaller screen devices : */}
 
-                <div className="md:hidden flex items-center justify-around ">
+                <div className="md:hidden py-1 flex items-center justify-around ">
 
                     <div className="">
-                        <NavLink className="flex items-center gap-1 cursor-pointer" to={'/'}>
-                            <h1 className='text-base font-bold'>Code</h1>
-                            <span className='text-xl font-semibold py-1 px-2 text-white rounded-md bg-gradient-to-r from-blue-400 via-blue-600 to-blue-000 hover:from-pink-500 hover:to-yellow-500'>VAULT</span>
+                        <NavLink className="flex items-center  cursor-pointer" to={'/'}>
+                            <motion.h1 className='text-base font-bold'
+
+                                initial={{ y1: 1000 }}
+                                animate={{ y: [-20, 0] }}
+                                transition={{
+                                    duration: 1,
+                                    delay: 0
+                                }}>
+
+
+                                RKP.</motion.h1>
+                            <span className='text-xl font-semibold  px-2 text-white rounded-md bg-gradient-to-r from-blue-400 via-blue-600 to-blue-000 hover:from-pink-500 hover:to-yellow-500'>DEV</span>
                         </NavLink>
                     </div>
 
@@ -193,55 +203,45 @@ const Header = () => {
                         <IoMdSearch size={25} className='active:scale-90 active:text-blue-600 transition-all' />
                     </button>
 
-                    <div className="flex items-center cursor-pointer rounded-full py-1 px-1 border border-blue-400" onClick={themeToggle}>
+                    <div className="flex items-center cursor-pointer rounded-full " onClick={themeToggle}>
 
-                        <span >{toggleTheme ? <HiMoon size={22} className='active:animate-spin' /> : <LuSunMedium size={22} className='active:animate-spin' />}</span>
+                        <span >{toggleTheme ? <HiMoon size={26} className='active:animate-spin' /> : <LuSunMedium size={26} className='active:animate-spin' />}</span>
                     </div>
 
 
                     {
-                        user ?
-                            <div className=" cursor-pointer relative" onClick={() => setDropDown(!dropDown)}>
-                                <img src={user && user.profilePicture} className='w-9 h-9 rounded-full' />
+                        user &&
+                        <div className=" cursor-pointer relative" onClick={() => setDropDown(!dropDown)}>
+                            <img src={user && user.profilePicture} className='w-9 h-9 rounded-full' />
 
-                                {/* Dropdown Menu  */}
+                            {/* Dropdown Menu  */}
 
-                                {
-                                    dropDown &&
+                            {
+                                dropDown &&
 
-                                    <div className={`absolute border  z-10 flex transition-all flex-col w-36 gap-1 text-center  rounded-md px-4 py-4 right-0 top-14 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-slate-200 border border-gray-400'}`}>
-
-
-
-                                        <div className={`flex gap-2 py-2 items-center transition-all  px-2 rounded-md ${theme === 'dark' ? 'hover:bg-gray-600' : 'hover:bg-gray-400 hover:text-white'}`}>
-
-                                            <CgProfile size={20} />
-
-                                            <NavLink className={`transition-all `} to={'/dashboard?tab=profile'}>Profile</NavLink>
-                                        </div>
-
-                                        <hr />
-
-                                        <div className={`flex gap-2 py-2 px-2 items-center transition-all rounded-md ${theme === 'dark' ? 'hover:bg-gray-600' : 'hover:bg-gray-400 hover:text-white'}`}>
-                                            <PiSignOutDuotone size={20} />
-                                            <button className='text-sm transition-all ' onClick={() => signOutHandle()}>SignOut</button>
-                                        </div>
+                                <div className={`absolute border  z-10 flex transition-all flex-col w-36 gap-1 text-center  rounded-md px-4 py-4 right-0 top-14 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-slate-200 border border-gray-400'}`}>
 
 
+
+                                    <div className={`flex gap-2 py-2 items-center transition-all  px-2 rounded-md ${theme === 'dark' ? 'hover:bg-gray-600' : 'hover:bg-gray-400 hover:text-white'}`}>
+
+                                        <CgProfile size={20} />
+
+                                        <NavLink className={`transition-all `} to={'/dashboard?tab=profile'}>Profile</NavLink>
                                     </div>
-                                }
 
-                            </div>
+                                    <hr />
 
-                            :
-                            <div className="">
-                                {location.pathname === `/login` || location.pathname === `/register` ? <></> :
-                                    <NavLink to={'/login'} className='active:scale-95 transition-all flex items-center gap-1 bg-blue-600 font-semibold rounded-md px-2 py-2 text-white hover:bg-blue-700 active:bg-blue-800'>
-                                        <span>Get started</span>
-                                        <span><MdOutlineKeyboardDoubleArrowRight size={20} /></span>
-                                    </NavLink>
-                                }
-                            </div>
+                                    <div className={`flex gap-2 py-2 px-2 items-center transition-all rounded-md ${theme === 'dark' ? 'hover:bg-gray-600' : 'hover:bg-gray-400 hover:text-white'}`}>
+                                        <PiSignOutDuotone size={20} />
+                                        <button className='text-sm transition-all ' onClick={() => signOutHandle()}>SignOut</button>
+                                    </div>
+
+
+                                </div>
+                            }
+
+                        </div>
                     }
 
                     <div className=' cursor-pointer transition-all'>
@@ -263,23 +263,22 @@ const Header = () => {
 
                         <div className="flex items-center gap-1">
                             <span><CgUserlane size={20} className={`${location.pathname === '/about' && 'text-blue-600'}`} /></span>
-                            <NavLink to={'/about'} className={location.pathname === '/about' && 'border-b-2 border-blue-600 text-blue-600'} onClick={() => setToggleNavBtn(!toggleNavBtn)}>Who am I ?</NavLink>
+                            <NavLink to={'/about'} className={`${location.pathname === '/about' && 'border-b-2 border-blue-600 text-blue-600'}`} onClick={() => setToggleNavBtn(!toggleNavBtn)}>About me</NavLink>
                         </div>
 
-                        <div className="flex items-center gap-1">
-                            <span><MdOutlineContactMail size={18} className={`${location.pathname === '/contact' && 'text-blue-600'}`} /></span>
-                            <NavLink to={'/contact'} className={location.pathname === '/contact' && 'border-b-2 border-blue-600 text-blue-600'} onClick={() => setToggleNavBtn(!toggleNavBtn)}>Contact</NavLink>
-                        </div>
+                        {!user &&
 
-                        <div className="flex items-center gap-1 border-blue-600 border rounded-md px-3 hover:bg-blue-200 cursor-pointer py-2">
-                            <NavLink onClick={() => setToggleNavBtn(!toggleNavBtn)} to={'/login'}>Login</NavLink>
-                            <span><IoIosArrowDropright /></span>
-                        </div>
+                            <div className="flex items-center justify-center" onClick={() => setToggleNavBtn(!toggleNavBtn)}>
+                                {location.pathname === `/login` || location.pathname === `/register` ? <></> :
+                                    <NavLink to={'/login'} className='active:scale-95 transition-all flex items-center gap-1 bg-blue-600 font-semibold rounded-md px-2 py-2 text-white hover:bg-blue-700 active:bg-blue-800'>
+                                        <span>Get started</span>
+                                        <span><MdOutlineKeyboardDoubleArrowRight size={20} /></span>
+                                    </NavLink>
+                                }
+                            </div>
+                        }
 
-                        <div className="flex items-center gap-1 bg-blue-600 text-white rounded-md px-2 py-2 cursor-pointer">
-                            <NavLink onClick={() => setToggleNavBtn(!toggleNavBtn)} to={'/register'}>Register</NavLink>
-                            <span><FaRegUserCircle /></span>
-                        </div>
+
                     </div>
                 }
 
