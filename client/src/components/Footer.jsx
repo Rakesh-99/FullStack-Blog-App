@@ -8,10 +8,10 @@ const Footer = () => {
 
     return (
         <>
-            <footer className={`${theme} ${theme === 'dark' ? 'border-t border-gray-700 py-6 flex justify-center items-center text-sm gap-4' : 'gap-4 text-sm border-t border-gray-100 py-6 flex justify-center items-center'}`}>
+            <footer className={`border-t md:gap-2 py-6 text-xs md:text-base  flex md:flex-row flex-col justify-center items-center ${theme === 'dark' ? ' border-gray-700' : ' border-gray-100  '}`}>
 
-                <p>Made with love by <span className='text-blue-400 font-semibold'>Rakesh Kumar Parida</span></p>
-                <p>@ Copyright All rights reserved</p>
+                <p className=''>Made with love by <span className='text-blue-400 font-semibold'>Rakesh Kumar Parida</span></p>
+                <p className='md:my-0 mt-2'>@ Copyright All rights reserved</p>
 
             </footer>
         </>
