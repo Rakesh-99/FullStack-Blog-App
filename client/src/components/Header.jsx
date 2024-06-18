@@ -71,14 +71,14 @@ const Header = () => {
     return (
 
         <>
-            <nav className={` shadow-sm md:px-10 px-2 py-2 ${theme === 'dark' && 'shadow-lg border-b border-gray-700'}`}>
+            <nav className={`z-20 sticky top-0 border-b shadow-sm md:px-10 px-2 py-2 ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-blue-100 border-gray-300'} `}>
 
                 {/* For larger screen devices : */}
 
-                <div className='md:flex hidden justify-between z-10'>
+                <div className='md:flex hidden justify-between z-20'>
 
 
-                    <NavLink className="flex items-center cursor-pointer" to={'/'}>
+                    <NavLink className=" flex items-center cursor-pointer" to={'/'}>
                         <motion.h1 className='text-lg font-bold'
                             initial={{ y1: 1000 }}
                             animate={{ y: [-20, 0] }}
@@ -86,9 +86,9 @@ const Header = () => {
                                 duration: 1,
                                 delay: 0
                             }}
-                        >RKP.</motion.h1>
-                        <motion.h1 className='text-xl font-semibold px-2  text-white rounded-md bg-gradient-to-r from-blue-400 via-blue-500 to-blue-000 '
-                        >DEV</motion.h1>
+                        >Code</motion.h1>
+                        <motion.h1 className='text-xl font-bold px-2  text-white rounded-md bg-gradient-to-r from-blue-400 via-blue-500 to-blue-000 '
+                        >Crafter</motion.h1>
                     </NavLink>
 
                     <div className="flex gap-5 font-semibold">
@@ -122,7 +122,7 @@ const Header = () => {
                             {
                                 toggleTheme
                                     ?
-                                    <HiMoon size={28} className='active:animate-spin active:bg-gray-300 transition-all rounded-full py-1 px-1' />
+                                    <HiMoon size={28} className='active:animate-spin transition-all rounded-full py-1 px-1' />
                                     : <LuSunMedium size={28} className='active:animate-spin ' />
                             }
                         </span>
@@ -138,22 +138,21 @@ const Header = () => {
                                 {
                                     dropDown &&
 
-                                    <div className={`absolute border  z-10 flex transition-all flex-col gap-2 w-28 text-center  rounded-md px-4 py-4 right-5 ${theme === 'dark' ? 'bg-zinc-700' : 'bg-white border-2'}`}>
+                                    <div className={`absolute border  z-10 flex transition-all flex-col gap-2 text-center w-36  rounded-md px-2 py-2 right-5 ${theme === 'dark' ? 'bg-zinc-700 ' : 'bg-white border-2'}`}>
 
 
-
-                                        <div className="flex gap-2">
+                                        <div className="flex items-center justify-center">
 
                                             <CgProfile size={20} />
 
-                                            <NavLink to={'/dashboard?tab=profile'} className='hover:text-blue-500 text-sm  font-semibold'>Profile</NavLink>
+                                            <NavLink to={'/dashboard?tab=profile'} className={` transition-all py-2 px-3 rounded-md text-sm font-semibold hover:${theme === 'dark' ? 'bg-gray-600  text-white' : 'bg-gray-300 text-black'}`}>Profile</NavLink>
                                         </div>
 
                                         <hr />
 
-                                        <div className="flex gap-2">
+                                        <div className="flex  justify-center items-center">
                                             <PiSignOutDuotone size={20} />
-                                            <button className='hover:text-blue-500 text-sm font-semibold' onClick={() => signOutHandle()}>SignOut</button>
+                                            <button className={`transition-all px-5 rounded-md py-2 text-sm font-semibold hover:${theme === 'dark' ? 'bg-gray-600  text-white' : 'bg-gray-300 text-black'}`} onClick={() => signOutHandle()}>SignOut</button>
                                         </div>
 
 
@@ -193,8 +192,8 @@ const Header = () => {
                                 }}>
 
 
-                                RKP.</motion.h1>
-                            <span className='text-xl font-semibold  px-2 text-white rounded-md bg-gradient-to-r from-blue-400 via-blue-600 to-blue-000 hover:from-pink-500 hover:to-yellow-500'>DEV</span>
+                                Code</motion.h1>
+                            <span className='text-xl font-semibold  px-2 text-white rounded-md bg-gradient-to-r from-blue-400 via-blue-600 to-blue-000 hover:from-pink-500 hover:to-yellow-500'>Crafter</span>
                         </NavLink>
                     </div>
 
@@ -282,7 +281,7 @@ const Header = () => {
                     </div>
                 }
 
-            </nav>
+            </nav >
 
 
 

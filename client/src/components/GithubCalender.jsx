@@ -9,10 +9,6 @@ const GithubCalenderFunc = () => {
             <div className="flex flex-col w-72 md:w-full items-center">
                 <div className="">
 
-                    <div className="">
-                        <img src={code} alt="" className='w-60 md:hidden block' />
-                    </div>
-
                     <p className='flex mb-5  justify-center font-semibold gap-2 text-xl'>Days I spend in coding
                         <span className='flex items-center text-green-500'>
                             <BsEmojiSmile size={22} />
