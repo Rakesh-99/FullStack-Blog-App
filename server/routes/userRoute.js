@@ -7,7 +7,11 @@ import {
     googleOAuth,
     deleteUser,
     signOutUser,
+    userResetPassword
 } from "../controller/userController.js";
+
+
+
 const userRouter = express.Router();
 import verifyUserMiddleware from "../middleware/verifyUserMiddleware.js";
 
@@ -19,6 +23,7 @@ userRouter
     .post("/googleuser", googleOAuth)
     .delete("/deleteuser/:id", verifyUserMiddleware, deleteUser)
     .post("/signoutuser", signOutUser)
-    .get("/getusers", verifyUserMiddleware, getUser);
+    .get("/getusers", verifyUserMiddleware, getUser)
+    .post("/reset-password", userResetPassword);
 
 export default userRouter;

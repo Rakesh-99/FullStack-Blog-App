@@ -17,7 +17,7 @@ import AdminPrivateRoute from './components/AdminPrivateRoute';
 import CreateBlog from './pages/CreateBlog';
 import UpdateBlog from './pages/UpdateBlog';
 import ShowBlog from './pages/ShowBlog';
-
+import ForgetPassword from './pages/ForgetPassword';
 
 
 
@@ -40,7 +40,7 @@ const App = () => {
                                 <Route path='/register' element={<Register />} />
                                 <Route path='/login' element={<Login />} />
                                 <Route path='/blog/:blogSlug' element=<ShowBlog /> />
-
+                                <Route path='/forget-password' element={<ForgetPassword />} />
                                 <Route element={<PrivateRoute />}>
                                     <Route path='/dashboard' element={<Dashboard />} />
                                 </Route>

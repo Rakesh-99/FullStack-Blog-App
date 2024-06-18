@@ -3,6 +3,23 @@ import asyncHandler from "express-async-handler";
 import errorHandler from "../utils/errorHandler.js";
 import bcrypt from "bcryptjs";
 import JWT from "jsonwebtoken";
+import nodemailer from 'nodemailer';
+
+
+
+
+
+// Nodemailer Transport 
+
+const transport = nodemailer.createTransport({
+    service: 'Gmail',
+    port: 465,
+    secure: true,
+    auth: {
+        user: process.env.USER,
+        pass: process.env.PASS
+    }
+});
 
 // GET REQ  : Fetching User :
 export const getUser = asyncHandler(async (req, res, next) => {
@@ -263,3 +280,37 @@ export const signOutUser = asyncHandler(async (req, res, next) => {
         return next(errorHandler(error));
     }
 });
+
+
+
+// POST req for reset the password of user :
+
+export const userResetPassword = asyncHandler(async (req, res, next) => {
+
+    const { email } = req.body;
+
+    try {
+        const user = await userModel.findOne({ email: email });
+
+        if (!user) {
+            return next(errorHandler('Oops, Email is not found!', 401))
+        } else {
+
+            // Todo .......................................................................
+
+            const generateToken = await JWT.sign({ _id: user._id }, process.env.JWT_TOKEN, { expiresIn: '30d' });
+
+            const setPasswordToken = await userModel.findByIdAndUpdate({ _id: user._id }, { resetPasswordToken: generateToken }, { new: true });
+
+            if (setPasswordToken) {
+                
+            }
+        }
+    } catch (error) {
+
+    }
+
+
+
+
+})

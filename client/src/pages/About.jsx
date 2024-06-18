@@ -12,7 +12,7 @@ const About = () => {
         <>
             {/* First Section  */}
             <div className="min-h-screen flex flex-col items-center justify-center w-full">
-                <div className="flex w-full justify-start md:ml-32 ">
+                <div className="flex w-full justify-start md:pl-20 ">
                     <motion.img src={aboutImage} alt="" className='rounded-full w-60 md:w-80 relative '
                         initial={{ x: -100 }}
                         animate={{ x: 10 }}
