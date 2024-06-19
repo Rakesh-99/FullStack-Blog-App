@@ -54,7 +54,7 @@ const ShowBlog = () => {
                         {
                             slug &&
 
-                            <div className="pt-10">
+                            <div className="pt-10 border">
 
                                 <h1 className='text-4xl font-semibold text-center hover:-translate-y-1 hover:cursor-not-allowed transition-all peer-hover:'>{slug && slug.slug}</h1>
 
@@ -64,7 +64,7 @@ const ShowBlog = () => {
                                 </div>
 
                                 <div className=" flex justify-center text-center my-10">
-                                    <img src={slug && slug.blogImgFile} className=' w-96 md:w-11/12 rounded-lg md:h-[40rem] object-cover' alt="" />
+                                    <img src={slug && slug.blogImgFile} className=' w-96 md:w-11/12 rounded-lg md:h-[35rem] object-cover' alt="" />
                                 </div>
 
                                 <div className="flex justify-center">
@@ -84,9 +84,10 @@ const ShowBlog = () => {
 
 
                                 </div>
-                                {/* Blog Body  */}
-                                <div className="flex justify-center">
-                                    <div dangerouslySetInnerHTML={{ __html: slug && slug.blogBody }} className=" blog-content my-10 px-5 text-justify md:w-2/3 w-11/12 overflow-x-scroll">
+                                <div className="flex w-full justify-center items-center my-10">
+                                    <div
+                                        dangerouslySetInnerHTML={{ __html: slug && slug.blogBody }}
+                                        className={`blog-content py-10 border w-full max-w-3xl overflow-x-auto px-5 ${theme === 'dark' ? 'bg-gray-800 text-white border-gray-600' : 'bg-white text-black border-gray-200'}`}>
                                     </div>
                                 </div>
 
