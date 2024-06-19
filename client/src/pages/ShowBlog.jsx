@@ -7,7 +7,7 @@ import { MdUpdate } from "react-icons/md";
 import { MdDateRange } from "react-icons/md";
 import { BiCategoryAlt } from "react-icons/bi";
 import GithubCard from '../components/GithubCard';
-
+import CommentCard from '../components/CommentCard';
 
 const ShowBlog = () => {
 
@@ -89,7 +89,19 @@ const ShowBlog = () => {
                                         dangerouslySetInnerHTML={{ __html: slug && slug.blogBody }}
                                         className={`blog-content py-10 border w-full max-w-80 text-justify md:max-w-3xl overflow-x-auto px-3 ${theme === 'dark' ? 'bg-zinc-700 text-white border-gray-600' : 'bg-white text-black border-gray-200'}`}>
                                     </div>
-                                    <GithubCard />
+
+
+                                    {/* Github Card */}
+                                    <div className="">
+                                        <GithubCard />
+                                    </div>
+
+                                    {/* Comment Card  */}
+
+                                    <div className="">
+                                        <CommentCard />
+                                    </div>
+
                                 </div>
                             </div>
                         }

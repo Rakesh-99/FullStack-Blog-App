@@ -18,7 +18,7 @@ import CreateBlog from './pages/CreateBlog';
 import UpdateBlog from './pages/UpdateBlog';
 import ShowBlog from './pages/ShowBlog';
 import ForgetPassword from './pages/ForgetPassword';
-
+import ScrollToTop from './components/ScrollToTop';
 
 
 
@@ -31,6 +31,7 @@ const App = () => {
             <PersistGate persistor={persistStore(store)}>
                 <Provider store={store}>
                     <BrowserRouter>
+                        <ScrollToTop />
                         <ThemeProvider>
                             <Header />
                             <Routes>
