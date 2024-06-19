@@ -71,7 +71,7 @@ const Header = () => {
     return (
 
         <>
-            <nav className={`z-20 sticky top-0 border-b shadow-sm md:px-10 px-2 py-2 ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-blue-100 border-gray-300'} `}>
+            <nav className={`z-20 sticky top-0 border-b shadow-sm md:px-10 px-2 py-2 ${theme === 'dark' ? 'bg-zinc-800 border-gray-700' : 'bg-blue-100 border-gray-300'} `}>
 
                 {/* For larger screen devices : */}
 
