@@ -6,17 +6,27 @@
   font-size: 1rem;
 }
 .blog-content h1 {
-  font-size: 3px;
-  margin: 10px 0;
+  font-size: 33px;
+  margin: 20px 0;
 }
 .blog-content h2 {
-  font-size: 27px;
-  margin: 10px 0;
+  font-size: 30px;
+  margin: 20px 0;
+}
+
+.blog-content h3 {
+  font-size: 24px;
+  margin: 15px;
 }
 
 .blog-content a {
-  color: rgb(66, 66, 255);
+  color: rgb(102, 102, 255);
 }
 .blog-content a:hover {
   text-decoration: underline;
+}
+.blog-content  {
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
