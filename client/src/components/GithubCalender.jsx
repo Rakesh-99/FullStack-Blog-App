@@ -1,7 +1,6 @@
 import React from 'react'
 import GithubCalender from 'react-github-calendar';
 import { BsEmojiSmile } from "react-icons/bs";
-import code from '../assests/code.png'
 
 const GithubCalenderFunc = () => {
     return (
