@@ -6,7 +6,7 @@ import BlogLoader from '../assests/blogSpinner/BlogLoader';
 import { MdUpdate } from "react-icons/md";
 import { MdDateRange } from "react-icons/md";
 import { BiCategoryAlt } from "react-icons/bi";
-
+import GithubCard from '../components/GithubCard';
 
 
 const ShowBlog = () => {
@@ -17,7 +17,7 @@ const ShowBlog = () => {
     const { blogSlug } = useParams();
     const [loader, setLoader] = useState(false);
 
-    console.log('resp from params', slug);
+
 
 
 
@@ -54,7 +54,7 @@ const ShowBlog = () => {
                         {
                             slug &&
 
-                            <div className="pt-10 border">
+                            <div className="pt-10">
 
                                 <h1 className='text-2xl md:text-4xl font-semibold text-center hover:-translate-y-1 hover:cursor-not-allowed transition-all peer-hover:'>{slug && slug.slug}</h1>
 
@@ -84,13 +84,13 @@ const ShowBlog = () => {
 
 
                                 </div>
-                                <div className="flex w-full justify-center items-center my-10">
+                                <div className="flex w-full justify-center items-center flex-col my-10">
                                     <div
                                         dangerouslySetInnerHTML={{ __html: slug && slug.blogBody }}
-                                        className={`blog-content py-10 border w-full max-w-80 text-justify md:max-w-3xl overflow-x-auto px-3 ${theme === 'dark' ? 'bg-gray-800 text-white border-gray-600' : 'bg-white text-black border-gray-200'}`}>
+                                        className={`blog-content py-10 border w-full max-w-80 text-justify md:max-w-3xl overflow-x-auto px-3 ${theme === 'dark' ? 'bg-zinc-700 text-white border-gray-600' : 'bg-white text-black border-gray-200'}`}>
                                     </div>
+                                    <GithubCard />
                                 </div>
-
                             </div>
                         }
                     </>
