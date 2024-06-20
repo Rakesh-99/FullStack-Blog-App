@@ -64,7 +64,7 @@ const ShowBlog = () => {
                                 </div>
 
                                 <div className=" flex justify-center text-center my-10">
-                                    <img src={slug && slug.blogImgFile} className=' w-80 border-2 border-gray-600 md:border-none md:w-11/12 rounded-lg md:h-[35rem] object-cover' alt="" />
+                                    <img src={slug && slug.blogImgFile} className=' w-96 border-2 border-gray-600 md:border-none md:w-11/12 rounded-lg md:h-[35rem] object-cover' alt="" />
                                 </div>
 
                                 <div className="flex justify-center">
@@ -87,7 +87,7 @@ const ShowBlog = () => {
                                 <div className="flex w-full justify-center items-center flex-col my-10">
                                     <div
                                         dangerouslySetInnerHTML={{ __html: slug && slug.blogBody }}
-                                        className={`blog-content py-10 border w-full max-w-80 text-justify md:max-w-3xl overflow-x-auto px-3 ${theme === 'dark' ? 'bg-zinc-700 text-white border-gray-600' : 'bg-white text-black border-gray-200'}`}>
+                                        className={`blog-content py-10  w-full max-w-[370px] text-justify md:max-w-3xl overflow-x-auto px-3 rounded-md `}>
                                     </div>
 
 
