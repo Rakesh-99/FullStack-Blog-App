@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
 import { AiOutlineComment } from "react-icons/ai";
@@ -12,28 +12,25 @@ const CommentCard = () => {
 
     const { user } = useSelector((state) => state.userSliceApp);
     const { theme } = useSelector((state) => state.themeSliceApp);
+    const { blogs } = useSelector((state) => state.blogSliceApp);
+
+
 
     const [commentData, setCommentData] = useState('');
+
+    const [showComments, setShowComments] = useState([]);
+
 
 
     const commentSubmitHandle = (e) => {
         e.preventDefault()
         formValidate(commentData)
+
     }
 
     const textAreaChange = (e) => {
         const { value } = e.target;
         setCommentData(value)
-    }
-
-
-    const postUserComment = async () => {
-
-        try {
-            const postComment = await axios.post(`/comment-post`)
-        } catch (error) {
-
-        }
     }
 
     const formValidate = (commentText) => {
@@ -48,10 +45,56 @@ const CommentCard = () => {
         }
     }
 
+    // POST Api : comment 
+
+    const postUserComment = async () => {
+
+        try {
+            const addComment = await axios.post(`/api/comment/add-comment/${blogs._id}/${user._id}`, { comment: commentData }, {
+                headers: {
+                    Authorization: user.token
+                }
+            })
+            if (addComment.status === 200) {
+                toast.success(addComment.data.message)
+
+            }
+        } catch (error) {
+            toast.error(error)
+            console.log(error);
+            return false;
+        }
+    }
+
+
+    // GET API Comment : 
+
+    const getUserComments = async () => {
+
+        try {
+            const getComments = await axios.get(`/api/comment/get-comment`);
+
+            if (getComments.status === 200) {
+                setShowComments(getComments.data.comments)
+            }
+
+        } catch (error) {
+            toast.error('Could not fetch comment at this moment!');
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        getUserComments();
+    }, []);
+
+
+
 
 
 
     return (
+
         <div className='md:mt-10 mt-5'>
 
             {
@@ -88,7 +131,7 @@ const CommentCard = () => {
 
                         <form className={`py-2  flex shadow-md flex-col  w-full px-1 md:px-5  rounded-md ${theme === 'dark' ? 'border border-gray-600 ' : 'border border-gray-300'}}`} onSubmit={commentSubmitHandle}>
 
-                            <textarea value={commentData} onChange={textAreaChange} placeholder='Type here...' name="textarea" className={` transition-all outline-none  w-80 rounded-md  py-3 px-2 ${theme === 'dark' ? 'bg-zinc-600 focus:bg-zinc-700' : 'bg-zinc-200 focus:bg-zinc-300'}`} maxLength={50}>
+                            <textarea value={commentData} onChange={textAreaChange} placeholder='Type here...' name="comment" className={` transition-all outline-none  w-80 rounded-md  py-3 px-2 ${theme === 'dark' ? 'bg-zinc-600 focus:bg-zinc-700' : 'bg-zinc-200 focus:bg-zinc-300'}`} maxLength={50}>
 
                             </textarea>
                             <span className={`text-xs md:text-sm  transition-all font-semibold ${commentData.length === 50 ? 'text-red-500 ' : 'text-green-500'}`}>{50 - commentData.length} characters left</span>

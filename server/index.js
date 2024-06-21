@@ -12,16 +12,20 @@ import errorMiddleware from './middleware/errorMiddleware.js';
 import cookieParser from 'cookie-parser';
 import blogRouter from './routes/blogRoute.js';
 import path from 'path';
+import commentRouter from './routes/commentRoute.js';
+
+
+
+
 
 const __dirname = path.resolve();
-
-
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 app.use('/api/user', userRouter);
 app.use('/api/blog', blogRouter);
+app.use('/api/comment', commentRouter);
 app.use(errorMiddleware);
 
 app.use(express.static(path.join(__dirname, '/client/dist')));
