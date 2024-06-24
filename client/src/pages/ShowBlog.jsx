@@ -19,8 +19,6 @@ const ShowBlog = () => {
 
 
 
-
-
     useEffect(() => {
 
         const fetchBlogSlug = async () => {
@@ -99,7 +97,7 @@ const ShowBlog = () => {
                                     {/* Comment Card  */}
 
                                     <div className="">
-                                        <CommentCard />
+                                        <CommentCard blogId={slug && slug._id} />
                                     </div>
 
                                 </div>
