@@ -17,7 +17,6 @@ const blogSlice = createSlice({
         addBlogSuccess: (state, action) => {
             state.blogs = action.payload;
             state.isLoading = false;
-            console.log(action.payload, 'The payload on successful of update blog');
         },
         addBlogFailure: (state, action) => {
             state.isLoading = false;
