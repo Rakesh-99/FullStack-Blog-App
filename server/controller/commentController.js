@@ -9,34 +9,26 @@ import userModel from '../model/userModel.js';
 
 export const addComment = asyncHandler(async (req, res, next) => {
 
-    const { comment } = req.body;
     const { userId, blogId } = req.params;
+    const { comment } = req.body;
 
-    try {
-        const user = await userModel.findById({ _id: userId });
-        const databaseUserId = user._id.toString();
+    if (userId) {
+        try {
+            const addComment = new commentModel({
+                comment,
+                userId,
+                blogId
+            });
+            await addComment.save();
 
-        if (userId !== databaseUserId) {
-            return next(errorHandler('You are not authorized, Id did not match!', 401));
-        }
-
-        const addComment = new commentModel({
-            comment: comment,
-            blogId: blogId,
-            userId: userId
-        })
-
-        const saveComment = await addComment.save();
-
-        if (saveComment) {
             return res.status(200).json({
                 success: true,
                 message: 'Comment has been added',
-                comment: comment
-            })
+                comment
+            });
+        } catch (error) {
+            return next(errorHandler('An error occurred while adding comment!', 400));
         }
-    } catch (error) {
-        next(errorHandler('An unexpected error occurred!', error, 400));
     }
 })
 
@@ -45,19 +37,21 @@ export const addComment = asyncHandler(async (req, res, next) => {
 // GET API : Get user comments -
 
 export const getUserComments = asyncHandler(async (req, res, next) => {
+
+    const { blogId } = req.params;
     try {
-        const getAllComments = await commentModel.find({});
+        const findComments = await commentModel.find({ blogId: blogId });
 
-        return res.status(200).json({
-            success: true,
-            comments: getAllComments
-        })
-
+        if (!findComments) {
+            return next(errorHandler('No comments found!', 400));
+        } else {
+            return res.status(200).json({
+                success: true,
+                message: 'Comment has been fetched',
+                comment: findComments
+            })
+        }
     } catch (error) {
-        return next(errorHandler('An unexpected error occured while fetching comment!', 400));
+        return next(errorHandler('An error occurred while fetching comments', error, 500));
     }
-});
-
-
-
-
+})

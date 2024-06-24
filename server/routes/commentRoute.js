@@ -10,8 +10,7 @@ import verifyUserMiddleware from "../middleware/verifyUserMiddleware.js";
 
 commentRouter
     .post('/add-comment/:blogId/:userId', verifyUserMiddleware, addComment)
-    .get('/get-comment', getUserComments)
-
+    .get('/get-comment/:blogId', getUserComments)
 
 
 

@@ -303,14 +303,39 @@ export const userResetPassword = asyncHandler(async (req, res, next) => {
             const setPasswordToken = await userModel.findByIdAndUpdate({ _id: user._id }, { resetPasswordToken: generateToken }, { new: true });
 
             if (setPasswordToken) {
-                
+
             }
         }
     } catch (error) {
 
     }
-
-
-
-
 })
+
+
+
+
+// GET API : public route : 
+
+export const getInfoOfWhoComment = asyncHandler(async (req, res, next) => {
+    const { userid } = req.params;
+
+    try {
+        const FindWhoComment = await userModel.findById({ _id: userid });
+
+        if (!FindWhoComment) {
+            return next(errorHandler('You are not authorized!', 401));
+        } else {
+
+            return res.status(200).json({
+                success: true,
+                message: 'Comments have been fetched',
+                user: FindWhoComment
+            })
+        }
+    } catch (error) {
+        next(errorHandler('An unexpected error occurred!', 400));
+    }
+
+
+
+});

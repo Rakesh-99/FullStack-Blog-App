@@ -7,7 +7,8 @@ import {
     googleOAuth,
     deleteUser,
     signOutUser,
-    userResetPassword
+    userResetPassword,
+    getInfoOfWhoComment
 } from "../controller/userController.js";
 
 
@@ -24,6 +25,7 @@ userRouter
     .delete("/deleteuser/:id", verifyUserMiddleware, deleteUser)
     .post("/signoutuser", signOutUser)
     .get("/getusers", verifyUserMiddleware, getUser)
-    .post("/reset-password", userResetPassword);
+    .post("/reset-password", userResetPassword)
+    .get('/who-comment/:userid', getInfoOfWhoComment)
 
 export default userRouter;
