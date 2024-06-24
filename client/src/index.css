@@ -19,13 +19,18 @@
   margin: 15px;
 }
 
+
+.blog-content p {
+  line-height: 2;
+}
+
 .blog-content a {
-  color: rgb(102, 102, 255);
+  color: rgb(85, 85, 201);
 }
 .blog-content a:hover {
   text-decoration: underline;
 }
-.blog-content  {
+.blog-content {
   word-wrap: break-word;
   word-break: break-word;
   overflow-wrap: break-word;
