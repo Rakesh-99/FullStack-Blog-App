@@ -28,7 +28,7 @@ const Comment = ({ userComments }) => {
         }
         getCommentUser();
 
-    }, []);
+    }, [userComments]);
 
 
 

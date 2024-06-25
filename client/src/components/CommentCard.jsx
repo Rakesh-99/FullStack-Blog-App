@@ -92,7 +92,7 @@ const CommentCard = ({ blogId }) => {
 
     useEffect(() => {
         getUserComments();
-    }, [blogId]);
+    }, [blogId, showComments]);
 
 
 
