@@ -7,6 +7,13 @@ import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
 import Comment from './Comment';
 
+
+
+
+
+
+
+
 const CommentCard = ({ blogId }) => {
 
     const { user } = useSelector((state) => state.userSliceApp);
@@ -15,6 +22,7 @@ const CommentCard = ({ blogId }) => {
     const [commentData, setCommentData] = useState('');
 
     const [showComments, setShowComments] = useState([]);
+
 
 
 
@@ -153,11 +161,16 @@ const CommentCard = ({ blogId }) => {
                 <hr className={` rounded-full ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'}`} />
 
                 {
-                    showComments && showComments.map((value) => {
+                    showComments && showComments.length > 0 &&
+
+                    showComments.map((value, index) => {
+
                         return (
-                            <div key={value._id}>
-                                <Comment commentInfo={value} />
+
+                            <div className="" key={index}>
+                                <Comment userComments={value} />
                             </div>
+
                         )
                     })
                 }

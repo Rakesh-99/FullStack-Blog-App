@@ -8,7 +8,7 @@ import {
     deleteUser,
     signOutUser,
     userResetPassword,
-    getInfoOfWhoComment
+    getUserForComment
 } from "../controller/userController.js";
 
 
@@ -26,6 +26,6 @@ userRouter
     .post("/signoutuser", signOutUser)
     .get("/getusers", verifyUserMiddleware, getUser)
     .post("/reset-password", userResetPassword)
-    .get('/who-comment/:userid', getInfoOfWhoComment)
+    .get('/get-user-comment/:userid', getUserForComment)
 
 export default userRouter;

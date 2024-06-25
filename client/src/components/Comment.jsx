@@ -1,72 +1,58 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react'
-import toast from 'react-hot-toast';
+import React, { useEffect, useState } from 'react';
+import moment from 'moment';
 import { useSelector } from 'react-redux';
+import { AiOutlineLike } from "react-icons/ai";
+import { FaRegEdit } from "react-icons/fa";
+import { MdOutlineDeleteOutline } from "react-icons/md";
 
 
+const Comment = ({ userComments }) => {
 
-
-
-const Comment = ({ commentInfo }) => {
 
     const { theme } = useSelector((state) => state.themeSliceApp);
+    const [user, setUser] = useState('');
 
-    const [user, setuser] = useState([]);
-    const [comments, setComments] = useState([]);
-
-
-
-
-
-    const infoOfWhoComment = async () => {
-        try {
-            const getUserInfo = await axios.get(`/api/user/who-comment/${commentInfo.userId}`);
-
-            if (getUserInfo.status === 200) {
-                setuser([...user, getUserInfo.data.user])
-            }
-
-
-        } catch (error) {
-            toast.error(error);
-        }
-    };
 
     useEffect(() => {
-        infoOfWhoComment();
-    }, [commentInfo])
+
+        const getCommentUser = async () => {
+            try {
+                const getUser = await axios.get(`/api/user/get-user-comment/${userComments.userId}`)
+                const response = getUser.data;
+                setUser(response.user)
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getCommentUser();
+
+    }, []);
+
 
 
 
     return (
         <>
-            <div className="">
-                {
+            <div className={`flex transition-all flex-col border  rounded-md my-4 py-2 px-5 ${theme === 'dark' ? 'border-zinc-700 hover:bg-zinc-700' : 'border-gray-200 hover:bg-gray-300'}`}>
+                <div className="flex gap-2 items-center  my-2">
+                    <img src={user && user.profilePicture} alt="" className='w-7 h-7 rounded-full' />
+                    <p className='text-sm font-semibold'>{user && user.username}</p>
+                    <p className='text-xs text-gray-500'>{moment(userComments && userComments.createdAt).fromNow()}</p>
+                </div>
 
-                    user && user.map((value) => {
-                        let currentDate = new Date().getMonth().toLocaleString();
-                        return (
-                            <div className={`border rounded-md my-2 px-2 ${theme === 'dark' ? 'border-gray-700' : 'border-gray-300'}`} key={value._id}>
+                <div className="ml-10 flex flex-col gap-3">
+                    <p className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>{userComments.comment}</p>
+                    <div className="flex flex-row gap-5">
+                        <span className='cursor-pointer hover:text-blue-400 transition-all'><AiOutlineLike /></span>
+                        <span className='cursor-pointer hover:text-blue-400 transition-all'><MdOutlineDeleteOutline /></span>
+                        <span className='cursor-pointer hover:text-blue-400 transition-all'><FaRegEdit /></span>
 
-                                <div className="flex items-center gap-2 my-2">
-                                    <img src={value.profilePicture} className='w-8 h-8 rounded-full' />
-                                    <p className='text-sm'>@{value.username}</p>
-                                    <p className='text-xs'>{new Date(value.createdAt).getMonth().toLocaleString() - currentDate + 1} months ago</p>
-                                </div>
-
-                                <div className="flex justify-start items-center">
-                                    {
-                                        <p className='ml-10 md:text-sm text-xs py-1 '>~ {commentInfo.comment}</p>
-
-                                    }
-                                </div>
-
-                            </div>
-
-                        )
-                    })
-                }
+                    </div>
+                </div>
             </div>
+
         </>
     )
 }
