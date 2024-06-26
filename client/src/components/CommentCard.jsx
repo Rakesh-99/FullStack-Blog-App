@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineComment } from "react-icons/ai";
 import feedbackImg from '../assests/typingImg.png'
 import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
-import Comment from './Comment';
+
 
 
 
@@ -18,10 +18,12 @@ const CommentCard = ({ blogId }) => {
 
     const { user } = useSelector((state) => state.userSliceApp);
     const { theme } = useSelector((state) => state.themeSliceApp);
+    const navigate = useNavigate();
 
     const [commentData, setCommentData] = useState('');
 
-    const [showComments, setShowComments] = useState([]);
+
+
 
 
 
@@ -55,6 +57,11 @@ const CommentCard = ({ blogId }) => {
     const postUserComment = async () => {
 
         try {
+
+            if (!user) {
+                toast.error('You must login to post comment!');
+                return;
+            }
             const addComment = await axios.post(`/api/comment/add-comment/${blogId}/${user._id}`, { comment: commentData }, {
                 headers: {
                     Authorization: user.token
@@ -62,39 +69,13 @@ const CommentCard = ({ blogId }) => {
             })
             if (addComment.status === 200) {
                 toast.success(addComment.data.message);
-                setShowComments([...showComments, addComment.data.comment]);
                 setCommentData('')
             }
         } catch (error) {
-            toast.error('An error occured while fetching comments!');
+            toast.error('An error occured while adding new comments!');
             console.log(error);
-            return false
         }
     };
-
-
-    // GET API Comment : 
-
-    const getUserComments = async () => {
-
-        try {
-            const getComments = await axios.get(`/api/comment/get-comment/${blogId}`);
-
-            if (getComments.status === 200) {
-                setShowComments(getComments.data.comment)
-            }
-
-        } catch (error) {
-            toast.error('Could not fetch the comment at this moment!');
-            console.log(error);
-        }
-    }
-
-    useEffect(() => {
-        getUserComments();
-    }, [blogId, showComments]);
-
-
 
 
 
@@ -144,7 +125,6 @@ const CommentCard = ({ blogId }) => {
 
                         </form>
 
-
                     </div>
                     <Toaster />
                 </div >
@@ -156,27 +136,10 @@ const CommentCard = ({ blogId }) => {
 
                 <div className="flex gap-3 items-center my-3">
                     <p className='text-sm '>Comments</p>
-                    <span className='border flex items-center justify-center px-2  text-sm rounded-md'>{showComments && showComments.length}</span>
+                    <span className='border flex items-center justify-center px-2  text-sm rounded-md'>0</span>
                 </div>
                 <hr className={` rounded-full ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'}`} />
-
-                {
-                    showComments && showComments.length > 0 &&
-
-                    showComments.map((value, index) => {
-
-                        return (
-
-                            <div className="" key={index}>
-                                <Comment userComments={value} />
-                            </div>
-
-                        )
-                    })
-                }
             </div>
-
-
         </div>
     )
 }
