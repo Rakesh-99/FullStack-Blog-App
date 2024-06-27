@@ -13,11 +13,14 @@ import { MdDeleteForever } from "react-icons/md";
 
 
 
-const UserComment = ({ comments, likeTheComment }) => {
+const UserComment = ({ comments, likeTheComment, deleteComment }) => {
 
 
     const [user, setUser] = useState(null);
     const { theme } = useSelector((state) => state.themeSliceApp);
+
+    const currentUser = useSelector((state) => state.userSliceApp.user);
+
 
 
 
@@ -47,7 +50,7 @@ const UserComment = ({ comments, likeTheComment }) => {
 
     return (
         <>
-            <div className={`flex border flex-col gap-1 transition-all px-2  my-4  py-2 rounded-md ${theme === 'dark' ? 'hover:bg-zinc-700 border-zinc-700' : 'hover:bg-gray-100 border-zinc-200'}`}>
+            <div className={`flex border-b flex-col gap-1 transition-all px-2  my-4 py-2 ${theme === 'dark' ? ' border-zinc-700' : ' border-zinc-200'}`}>
                 <div className='flex gap-1'>
                     <img src={user && user.profilePicture} className='w-6 h-6 rounded-full' />
                     <div className="flex gap-4 items-center">
@@ -60,17 +63,31 @@ const UserComment = ({ comments, likeTheComment }) => {
 
                 <p className={`text-sm ml-5 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>- {comments && comments.comment}</p>
 
-                <div className="flex gap-7 ml-6 mt-2" >
+                <div className="flex items-center gap-7 ml-6 mt-2" >
 
-                    <div className="flex justify-center items-center gap-1">
-                        <button type='button' className={`flex items-center transition-all gap-2 cursor-pointer active:scale-90 ${user && comments.likes.includes(user._id) && '!text-blue-500'}`}><AiFillLike size={18} onClick={() => likeTheComment(comments && comments._id)} /> </button>
+                    <div className="flex  justify-center  items-center gap-1">
 
-                        <span className='font-bold text-sm'>{comments.numberOfLikes}</span>
+                        <button type='button' className={`flex items-center transition-all gap-2 cursor-pointer active:animate-spin ${user && comments.likes.includes(currentUser._id) && '!text-blue-500'}`}><AiFillLike size={18} onClick={() => likeTheComment(comments && comments._id)} /> </button>
+
+                        <p className=''>
+                            {
+                                comments.numberOfLikes > 0 &&
+                                comments.numberOfLikes + " " + (comments.numberOfLikes === 1 ? 'like' : 'likes')
+                            }
+                        </p>
                     </div>
 
-                    <span className=' transition-all cursor-pointer active:scale-90'><RiEdit2Fill size={18} /></span>
+                    <button type='button' className=' transition-all cursor-pointer active:scale-50'>
+                        {
+                            currentUser._id === comments.userId && <RiEdit2Fill size={18} />
+                        }
+                    </button>
 
-                    <span className=' transition-all cursor-pointer active:scale-90'><MdDeleteForever size={18} /></span>
+                    <button type='button' className=' transition-all cursor-pointer active:scale-50' onClick={() => deleteComment(comments && comments)}>
+                        {
+                            currentUser._id === comments.userId && <MdDeleteForever size={18} />
+                        }
+                    </button>
                 </div>
             </div>
         </>
