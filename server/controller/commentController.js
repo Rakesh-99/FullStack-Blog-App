@@ -33,5 +33,55 @@ export const addComment = asyncHandler(async (req, res, next) => {
 })
 
 
+// GET API  : find user who comment -
 
+export const getUserComments = asyncHandler(async (req, res, next) => {
+    const { blogId } = req.params;
+
+    try {
+        const findComment = await commentModel.find({ blogId: req.params.blogId });
+
+
+        if (!findComment) {
+            return next('No comment found!', 400);
+        }
+
+        return res.status(200).json({
+            findComment
+        })
+
+    } catch (error) {
+        return next('An unexpected error occurred!', 400);
+    }
+})
+
+
+// PUT API  : Add and remove like - 
+
+export const likeTheComment = asyncHandler(async (req, res, next) => {
+
+    const { commentId } = req.params;
+    const { user } = req.body;
+
+
+    const comment = await commentModel.findById(commentId);
+
+    if (!comment) {
+        return next('Comment not found !', 404);
+    }
+
+    const userIndex = comment.likes.indexOf(user);
+
+    if (userIndex === -1) {
+        comment.likes.push(user);
+        comment.numberOfLikes += 1;
+    } else {
+        comment.likes.splice(userIndex, 1);
+        comment.numberOfLikes -= 1;
+    }
+
+    await comment.save();
+
+    return res.status(200).json(comment);
+});
 

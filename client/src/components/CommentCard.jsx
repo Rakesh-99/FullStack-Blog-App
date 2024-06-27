@@ -5,6 +5,7 @@ import { AiOutlineComment } from "react-icons/ai";
 import feedbackImg from '../assests/typingImg.png'
 import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
+import UserComment from './UserComment';
 
 
 
@@ -21,6 +22,9 @@ const CommentCard = ({ blogId }) => {
     const navigate = useNavigate();
 
     const [commentData, setCommentData] = useState('');
+    const [comments, setComments] = useState([]);
+
+
 
 
 
@@ -70,13 +74,70 @@ const CommentCard = ({ blogId }) => {
             if (addComment.status === 200) {
                 toast.success(addComment.data.message);
                 setCommentData('')
+
             }
         } catch (error) {
             toast.error('An error occured while adding new comments!');
             console.log(error);
         }
+
     };
 
+
+    //Get user comment : 
+
+    useEffect(() => {
+        const getUserComments = async () => {
+            try {
+                const getComments = await axios.get(`/api/comment/get-comment/${blogId}`);
+
+                if (getComments.status === 200) {
+                    // console.log(getComments.data.findComment);
+                    setComments(getComments.data.findComment)
+                }
+            } catch (error) {
+                console.log(error.message);
+            }
+        };
+        getUserComments();
+    }, [blogId]);
+
+
+
+
+    const likeTheComment = async (commentId) => {
+
+        console.log(commentId);
+        try {
+            if (!user) {
+                navigate('/login');
+                return;
+            }
+
+            const doLike = await axios.put(`/api/comment/like-the-comment/${commentId}`, { user: user._id }, {
+                headers: {
+                    Authorization: user.token
+                },
+            })
+
+            if (doLike.status === 200) {
+                setComments(comments.map(comments => {
+
+                    if (comments._id === commentId) {
+
+                        return {
+                            ...comments,
+                            likes: doLike.data.likes,
+                            numberOfLikes: doLike.data.numberOfLikes
+                        }
+                    }
+                    return comments;
+                }))
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
 
 
     return (
@@ -136,10 +197,24 @@ const CommentCard = ({ blogId }) => {
 
                 <div className="flex gap-3 items-center my-3">
                     <p className='text-sm '>Comments</p>
-                    <span className='border flex items-center justify-center px-2  text-sm rounded-md'>0</span>
+                    <span className='border flex items-center justify-center px-2  text-sm rounded-md'>{comments && comments.length}</span>
                 </div>
                 <hr className={` rounded-full ${theme === 'dark' ? 'border-gray-600' : 'border-gray-300'}`} />
             </div>
+
+            {
+                comments && comments.length === 0 ?
+
+                    <p className='text-sm text-teal-500'>No comment found on this blog</p>
+                    :
+                    comments.map((value, index) => {
+                        return (
+                            <div className="" key={index}>
+                                <UserComment comments={value} likeTheComment={likeTheComment} />
+                            </div>
+                        )
+                    })
+            }
         </div>
     )
 }
