@@ -104,7 +104,7 @@ const CommentCard = ({ blogId }) => {
 
 
 
-
+    // PUT API - For liking the comment 
     const likeTheComment = async (commentId) => {
 
         console.log(commentId);
@@ -133,6 +133,27 @@ const CommentCard = ({ blogId }) => {
                     }
                     return comments;
                 }))
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+
+    // DELETE API - For deleting the comment 
+    const deleteComment = async (comments) => {
+
+        console.log(comments);
+
+        try {
+            if (user._id !== comments.userId) {
+                toast.error('Oops! You can only delete your own comment.');
+                return false
+            }
+            const deleteUserComment = await axios.delete(`/api/comment/delete-comment/${comments._id}/${user._id}`);
+
+            if (deleteUserComment.status === 200) {
+                toast.success(deleteUserComment.data.message)
             }
         } catch (error) {
             console.log(error.message);
@@ -210,7 +231,7 @@ const CommentCard = ({ blogId }) => {
                     comments.map((value, index) => {
                         return (
                             <div className="" key={index}>
-                                <UserComment comments={value} likeTheComment={likeTheComment} />
+                                <UserComment comments={value} likeTheComment={likeTheComment} deleteComment={deleteComment} />
                             </div>
                         )
                     })
