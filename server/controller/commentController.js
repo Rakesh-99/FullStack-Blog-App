@@ -85,3 +85,29 @@ export const likeTheComment = asyncHandler(async (req, res, next) => {
     return res.status(200).json(comment);
 });
 
+
+
+// DELETE API : Delete comment : 
+
+export const deleteComment = asyncHandler(async (req, res, next) => {
+    const { commentId, userId } = req.params;
+
+    try {
+
+        const comment = await commentModel.findById(commentId);
+
+        if (!comment) {
+            return next('Comment not found!', 404);
+        }
+
+        await commentModel.findByIdAndDelete({ _id: commentId }, { new: true });
+
+        return res.status(200).json({
+            success: true,
+            message: 'Comment has been deleted',
+
+        })
+    } catch (error) {
+        return next('An unexpected error occurred!', error, 500);
+    }
+})
