@@ -28,17 +28,24 @@ const UserComment = ({ comments, likeTheComment, deleteComment }) => {
 
 
 
+
+
+
+
     useEffect(() => {
 
         const getUserComments = async () => {
+
             try {
                 const getUser = await axios.get(`/api/user/get-user-comment/${comments.userId}`);
-
                 if (getUser.status === 200) {
+
                     setUser(getUser.data)
+
                 }
             } catch (error) {
-                console.log(error);
+
+                console.log(error.message);
             }
         }
 

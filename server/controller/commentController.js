@@ -36,7 +36,7 @@ export const addComment = asyncHandler(async (req, res, next) => {
 // GET API  : find user who comment -
 
 export const getUserComments = asyncHandler(async (req, res, next) => {
-    const { blogId } = req.params;
+
 
     try {
         const findComment = await commentModel.find({ blogId: req.params.blogId });

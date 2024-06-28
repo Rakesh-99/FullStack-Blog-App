@@ -316,25 +316,21 @@ export const userResetPassword = asyncHandler(async (req, res, next) => {
 
 // GET API : public route : 
 
-export const getUserComment = asyncHandler(async (req, res, next) => {
+export const getComment = asyncHandler(async (req, res, next) => {
 
-    const { userId } = req.params;
+    const { commentUserId } = req.params;
+
+    console.log(commentUserId);
 
     try {
+        const comment = await userModel.findById({ _id: commentUserId });
 
-        const getCommentUser = await userModel.findById({ _id: userId })
-
-        if (!getUserComment) {
-            return next('User not found!', 400);
+        if (!comment) {
+            return next(errorHandler('Comment not found!', 404));
         }
-
-        const { password, ...rest } = getCommentUser._doc;
-
-        return res.status(200).json(rest);
-
+        const { password, ...rest } = comment._doc;
+        return res.status(200).json(comment);
     } catch (error) {
-        return next('An unexpected error occurred!', 500);
+        console.log(error);
     }
-
-
 })

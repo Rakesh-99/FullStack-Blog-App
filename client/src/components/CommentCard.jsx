@@ -32,7 +32,6 @@ const CommentCard = ({ blogId }) => {
 
 
 
-
     const commentSubmitHandle = (e) => {
         e.preventDefault()
         formValidate(commentData)
@@ -106,8 +105,6 @@ const CommentCard = ({ blogId }) => {
 
     // PUT API - For liking the comment 
     const likeTheComment = async (commentId) => {
-
-        console.log(commentId);
         try {
             if (!user) {
                 navigate('/login');
@@ -143,7 +140,7 @@ const CommentCard = ({ blogId }) => {
     // DELETE API - For deleting the comment 
     const deleteComment = async (comments) => {
 
-        console.log(comments);
+
 
         try {
             if (user._id !== comments.userId) {
