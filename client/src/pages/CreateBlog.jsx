@@ -67,7 +67,6 @@ const CreateBlog = () => {
             const upload = await uploadBytes(imageRef, blogImage);
 
             const blogImgUrl = await getDownloadURL(upload.ref);
-            console.log(blogImgUrl);
             setImageLoader(false)
             toast.success('Image uploaded successfully');
 
