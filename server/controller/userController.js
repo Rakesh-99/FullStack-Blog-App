@@ -320,8 +320,6 @@ export const getComment = asyncHandler(async (req, res, next) => {
 
     const { commentUserId } = req.params;
 
-    console.log(commentUserId);
-
     try {
         const comment = await userModel.findById({ _id: commentUserId });
 
@@ -329,7 +327,7 @@ export const getComment = asyncHandler(async (req, res, next) => {
             return next(errorHandler('Comment not found!', 404));
         }
         const { password, ...rest } = comment._doc;
-        return res.status(200).json(comment);
+        return res.status(200).json(rest);
     } catch (error) {
         console.log(error);
     }
