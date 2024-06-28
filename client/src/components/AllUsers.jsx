@@ -122,8 +122,10 @@ const AllUsers = () => {
 
     return (
         <>
-            {getAllUsers.length > 0 && (
-                <div className="min-h-screen w-full md:mx-10 table-auto overflow-x-scroll scrollbar">
+
+            <div className="min-h-screen w-full md:mx-10 table-auto overflow-x-scroll scrollbar">
+                {
+                    getAllUsers.length > 0 &&
                     <Table hoverable className={`my-5`}>
                         <Table.Head
                             className={` text-base   ${theme === "dark" ? "text-gray-100" : "text-gray-700"
@@ -235,24 +237,29 @@ const AllUsers = () => {
                             </>
                         )}
                     </Table>
-                    {showMoreButton && (
-                        <div className="text-center my-5">
-                            <button
-                                onClick={showMoreUserButton}
-                                className={`transition-all active:scale-95 hover:bg-blue-900 py-2 font-semibold text-sm px-2 border-2 rounded-md  ${theme === "dark"
-                                    ? "bg-gray-700 active:bg-gray-800 text-gray-200 border-gray-400"
-                                    : "active:bg-gray-600 active:text-white hover:text-white bg-gray-300 text-gray-800 border-gray-500"
-                                    }`}
-                            >
-                                Show more..
-                            </button>
-                        </div>
-                    )}
-                </div>
-            )}
+                }
+
+                {showMoreButton && (
+                    <div className="text-center my-5">
+                        <button
+                            onClick={showMoreUserButton}
+                            className={`transition-all active:scale-95 hover:bg-blue-900 py-2 font-semibold text-sm px-2 border-2 rounded-md  ${theme === "dark"
+                                ? "bg-gray-700 active:bg-gray-800 text-gray-200 border-gray-400"
+                                : "active:bg-gray-600 active:text-white hover:text-white bg-gray-300 text-gray-800 border-gray-500"
+                                }`}
+                        >
+                            Show more..
+                        </button>
+                    </div>
+                )}
+
+            </div>
+
 
             {/* Showing Modal before deleting the user */}
-            {showModal && (
+            {
+                showModal &&
+
                 <div className="fixed inset-0  transition-all backdrop-blur-sm bg-opacity-30 flex justify-center items-center">
                     <div
                         className={`flex flex-col gap-7  shadow-md w-80 md:w-96 bg- rounded-md  px-3 justify-center items-center py-5   ${theme === "dark"
@@ -298,9 +305,9 @@ const AllUsers = () => {
                         </div>
                     </div>
                 </div>
-            )}
+            }
             <Toaster />
-        </>
+        </ >
     );
 };
 
