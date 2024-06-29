@@ -13,7 +13,7 @@ import { MdDeleteForever } from "react-icons/md";
 
 
 
-const UserComment = ({ comments, likeTheComment, deleteComment }) => {
+const UserComment = ({ comments, likeTheComment, deleteComment, setModal }) => {
 
 
     const [user, setUser] = useState(null);
@@ -49,11 +49,15 @@ const UserComment = ({ comments, likeTheComment, deleteComment }) => {
             }
         }
 
-        getUserComments();
+        if (comments.userId) {
+            getUserComments();
+        }
 
-    }, [comments])
+    }, [comments.userId])
 
-
+    if (!user || !comments) {
+        return null; // or a loading indicator, depending on your UI needs
+    }
 
     return (
         <>
@@ -74,7 +78,16 @@ const UserComment = ({ comments, likeTheComment, deleteComment }) => {
 
                     <div className="flex  justify-center  items-center gap-1">
 
-                        <button type='button' className={`flex items-center transition-all gap-2 cursor-pointer active:animate-spin ${user && comments.likes.includes(currentUser._id) && '!text-blue-500'}`}><AiFillLike size={18} onClick={() => likeTheComment(comments && comments._id)} /> </button>
+                        {
+                            comments.likes &&
+
+                            <button type='button' className={`flex items-center transition-all gap-2 cursor-pointer  ${user && comments.likes.includes(currentUser && currentUser._id) && '!text-blue-500'}`}>
+
+                                <AiFillLike size={20} onClick={() => likeTheComment(comments && comments._id)} className='active:scale-75' />
+
+                            </button>
+                        }
+
 
                         <p className=''>
                             {
@@ -84,17 +97,17 @@ const UserComment = ({ comments, likeTheComment, deleteComment }) => {
                         </p>
                     </div>
 
-                    <button type='button' className=' transition-all cursor-pointer active:scale-50'>
-                        {
-                            currentUser._id === comments.userId && <RiEdit2Fill size={18} />
-                        }
-                    </button>
 
-                    <button type='button' className=' transition-all cursor-pointer active:scale-50' onClick={() => deleteComment(comments && comments)}>
-                        {
-                            currentUser._id === comments.userId && <MdDeleteForever size={18} />
-                        }
-                    </button>
+                    {currentUser && (currentUser._id === comments?.userId || currentUser.isAdmin) &&
+                        <>
+                            <button type='button'>
+                                <RiEdit2Fill className='hover:text-green-400 active:scale-75 transition-all' size={20} />
+                            </button>
+                            <button type='button' >
+                                <MdDeleteForever className='hover:text-red-400 active:scale-75 transition-all' size={20} />
+                            </button>
+                        </>
+                    }
                 </div>
             </div>
         </>
