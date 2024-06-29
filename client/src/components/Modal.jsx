@@ -36,7 +36,6 @@ const Modal = ({ setShowModal, user }) => {
                     Authorization: user.token
                 }
             })
-            console.log(deleteUserInfo.data);
             dispatch(deleteUserSuccess());
 
         } catch (error) {
