@@ -1,6 +1,6 @@
 import express from "express";
 const commentRouter = express.Router();
-import { addComment, getUserComments, likeTheComment, deleteComment } from "../controller/commentController.js";
+import { addComment, getComment, likeTheComment, deleteComment } from "../controller/commentController.js";
 import verifyUserMiddleware from "../middleware/verifyUserMiddleware.js";
 
 
@@ -9,8 +9,8 @@ import verifyUserMiddleware from "../middleware/verifyUserMiddleware.js";
 
 
 commentRouter
-    .post('/add-comment/:blogId/:userId', verifyUserMiddleware, addComment)
-    .get('/get-comment/:blogId', getUserComments)
+    .post('/add-comment', verifyUserMiddleware, addComment)
+    .get('/get-comment/:blogId', getComment)
     .put('/like-the-comment/:commentId', verifyUserMiddleware, likeTheComment)
     .delete('/delete-comment/:commentId/:userId', deleteComment)
 
