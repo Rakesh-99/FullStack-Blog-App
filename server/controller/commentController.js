@@ -9,49 +9,51 @@ import userModel from '../model/userModel.js';
 
 export const addComment = asyncHandler(async (req, res, next) => {
 
-    const { userId, blogId } = req.params;
-    const { comment } = req.body;
+    const { userId, blogId, comment } = req.body;
 
-    if (userId) {
-        try {
-            const addComment = new commentModel({
-                comment,
-                userId,
-                blogId
-            });
-            await addComment.save();
+    try {
 
-            return res.status(200).json({
-                success: true,
-                message: 'Comment has been added',
-                comment
-            });
-        } catch (error) {
-            return next(errorHandler('An error occurred while adding comment!', 400));
+        if (req.user.id !== userId) {
+            return next('Unauthorized user!', 401);
         }
+
+        const createComment = new commentModel({
+            userId,
+            blogId,
+            comment
+        });
+
+        await createComment.save();
+
+        return res.status(200).json({
+            success: true,
+            message: 'Comment has been added ',
+            comment: createComment
+        })
+
+    } catch (error) {
+        return next(error.message, 400);
     }
 })
 
 
 // GET API  : find user who comment -
 
-export const getUserComments = asyncHandler(async (req, res, next) => {
+export const getComment = asyncHandler(async (req, res, next) => {
 
+    const { blogId } = req.params;
 
     try {
-        const findComment = await commentModel.find({ blogId: req.params.blogId });
 
+        const comments = await commentModel.find({ blogId });
 
-        if (!findComment) {
-            return next('No comment found!', 400);
+        if (comments.length === 0 || !comments) {
+            return next('No comments found !', 404);
+
         }
-
-        return res.status(200).json({
-            findComment
-        })
-
+        return res.status(200).json(comments);
     } catch (error) {
-        return next('An unexpected error occurred!', 400);
+        return next(error.message, 400);
     }
 })
 
