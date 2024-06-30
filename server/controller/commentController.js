@@ -44,16 +44,14 @@ export const getComment = asyncHandler(async (req, res, next) => {
     const { blogId } = req.params;
 
     try {
+        const comments = await commentModel.find({ blogId: blogId });
 
-        const comments = await commentModel.find({ blogId });
-
-        if (comments.length === 0 || !comments) {
-            return next('No comments found !', 404);
-
+        if (comments.length === 0) {
+            return next(errorHandler('No comments found!', 404));
         }
         return res.status(200).json(comments);
     } catch (error) {
-        return next(error.message, 400);
+        return next(errorHandler(error.message, 400));
     }
 })
 
