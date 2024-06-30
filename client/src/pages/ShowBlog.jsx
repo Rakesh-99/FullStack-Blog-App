@@ -8,6 +8,7 @@ import { MdDateRange } from "react-icons/md";
 import { BiCategoryAlt } from "react-icons/bi";
 import GithubCard from '../components/GithubCard';
 import CommentCard from '../components/CommentCard';
+import RecentBlog from '../components/RecentBlog';
 
 const ShowBlog = () => {
 
@@ -16,6 +17,9 @@ const ShowBlog = () => {
     const [slug, setSlug] = useState();
     const { blogSlug } = useParams();
     const [loader, setLoader] = useState(false);
+    const [limitBlogs, setLimitBlogs] = useState([]);
+
+    console.log(limitBlogs);
 
 
 
@@ -39,6 +43,29 @@ const ShowBlog = () => {
         }
         fetchBlogSlug();
     }, [blogSlug]);
+
+
+
+
+
+
+    useEffect(() => {
+
+        const getLimitBlogs = async () => {
+
+            try {
+                const getBlogs = await axios.get(`/api/blog/get-all-blogs?limit=3`);
+
+                if (getBlogs.status === 200) {
+                    setLimitBlogs(getBlogs.data.blogs)
+                }
+
+            } catch (error) {
+                console.log(error.message);
+            }
+        }
+        getLimitBlogs();
+    }, []);
 
 
     return (
@@ -98,6 +125,23 @@ const ShowBlog = () => {
 
                                     <div className="">
                                         <CommentCard blogId={slug && slug._id} />
+                                    </div>
+
+                                    {/* Recent Blog card  */}
+
+
+                                    <h1 className='text-2xl text-center my-10 '>Recent blogs</h1>
+                                    <div className="gap-5 w-full flex md:flex-row flex-col justify-center">
+                                        {
+
+                                            limitBlogs && limitBlogs.map((value, index) => {
+                                                return (
+                                                    <RecentBlog key={index} blogs={value} />
+                                                )
+
+                                            })
+
+                                        }
                                     </div>
 
                                 </div>
