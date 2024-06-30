@@ -6,8 +6,8 @@ import feedbackImg from '../assests/typingImg.png'
 import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
 import UserComment from './UserComment';
-
-
+import { IoClose } from "react-icons/io5";
+import { ImWarning } from "react-icons/im";
 
 
 
@@ -23,11 +23,7 @@ const CommentCard = ({ blogId }) => {
 
     const [commentData, setCommentData] = useState('');
     const [comments, setComments] = useState([]);
-
-
-
-
-
+    const [modal, setModal] = useState(false);
 
 
 
@@ -55,8 +51,7 @@ const CommentCard = ({ blogId }) => {
         }
     }
 
-    // POST Api : comment 
-
+    // POST Api : Add comment - 
     const postUserComment = async () => {
 
         try {
@@ -65,40 +60,45 @@ const CommentCard = ({ blogId }) => {
                 toast.error('You must login to post comment!');
                 return;
             }
-            const addComment = await axios.post(`/api/comment/add-comment/${blogId}/${user._id}`, { comment: commentData }, {
-                headers: {
-                    Authorization: user.token
-                }
-            })
+            const addComment = await axios.post(`/api/comment/add-comment/`,
+                {
+                    comment: commentData,
+                    blogId: blogId,
+                    userId: user._id
+                },
+                {
+                    headers: {
+                        Authorization: user.token
+                    }
+                })
             if (addComment.status === 200) {
-                toast.success(addComment.data.message);
+                toast.success('Comment has been added');
                 setCommentData('')
 
+                setComments([...comments, addComment.data.comment])
             }
         } catch (error) {
             toast.error('An error occured while adding new comments!');
             console.log(error);
         }
-
     };
 
 
     //Get user comment : 
-
     useEffect(() => {
-        const getUserComments = async () => {
+        const getComment = async () => {
             try {
-                const getComments = await axios.get(`/api/comment/get-comment/${blogId}`);
+                const comment = await axios.get(`/api/comment/get-comment/${blogId}`);
 
-                if (getComments.status === 200) {
-                    // console.log(getComments.data.findComment);
-                    setComments(getComments.data.findComment)
+                if (comment.status === 200) {
+                    setComments(comment.data)
                 }
             } catch (error) {
                 console.log(error.message);
             }
-        };
-        getUserComments();
+        }
+        getComment();
+
     }, [blogId]);
 
 
@@ -137,25 +137,10 @@ const CommentCard = ({ blogId }) => {
     }
 
 
-    // DELETE API - For deleting the comment 
-    const deleteComment = async (comments) => {
 
 
 
-        try {
-            if (user._id !== comments.userId) {
-                toast.error('Oops! You can only delete your own comment.');
-                return false
-            }
-            const deleteUserComment = await axios.delete(`/api/comment/delete-comment/${comments._id}/${user._id}`);
 
-            if (deleteUserComment.status === 200) {
-                toast.success(deleteUserComment.data.message)
-            }
-        } catch (error) {
-            console.log(error.message);
-        }
-    }
 
 
     return (
@@ -228,11 +213,65 @@ const CommentCard = ({ blogId }) => {
                     comments.map((value, index) => {
                         return (
                             <div className="" key={index}>
-                                <UserComment comments={value} likeTheComment={likeTheComment} deleteComment={deleteComment} />
+                                <UserComment comments={value} likeTheComment={likeTheComment} />
                             </div>
                         )
                     })
             }
+
+
+
+
+
+
+            {/* Popup Modal  */}
+
+
+
+            {
+                modal && <div className="fixed inset-0  transition-all backdrop-blur-sm bg-opacity-30 flex justify-center items-center">
+                    <div
+                        className={`flex flex-col gap-7  shadow-md w-80 md:w-96 bg- rounded-md  px-3 justify-center items-center py-5   ${theme === "dark"
+                            ? "bg-zinc-800 text-gray-200"
+                            : "bg-white text-gray-900"
+                            }`}
+                    >
+                        <button className="place-self-end transition-all" onClick={cancelHandle}>
+                            <IoClose size={25} className=' active:animate-ping transition-all' />
+                        </button>
+
+                        <div className="">
+                            <ImWarning size={40} />
+                        </div>
+
+                        <div className="">
+                            <p className="text-base text-center">
+                                Are you sure you want to delete your comment  ?
+                            </p>
+                        </div>
+
+                        <div className="flex gap-4">
+                            <button
+                                className={`text-sm  rounded-md transition-all active:bg-red-800 font-semibold py-2 px-2 active:scale-95  ${theme === "dark" ? "bg-red-700" : "bg-red-400"
+                                    }`}
+                                onClick={() => {
+                                    deleteComment();
+                                }}
+                            >
+                                Yes,I'm sure
+                            </button>
+
+                            <button
+                                className=" border text-sm font-semibold  active:scale-95 transition-all bg-transparent rounded-md py-2 px-3 active:bg-gray-600"
+                                onClick={cancelHandle}
+                            >
+                                No, cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+
         </div>
     )
 }

@@ -13,13 +13,19 @@ import { MdDeleteForever } from "react-icons/md";
 
 
 
-const UserComment = ({ comments, likeTheComment, deleteComment, setModal }) => {
+const UserComment = ({ comments, likeTheComment }) => {
 
 
     const [user, setUser] = useState(null);
     const { theme } = useSelector((state) => state.themeSliceApp);
-
+    const [editorOpen, setEditorOpen] = useState(false);
     const currentUser = useSelector((state) => state.userSliceApp.user);
+
+    const [textAreaVal, setTextAreaVal] = useState([comments.comment]);
+
+
+
+
 
 
 
@@ -55,9 +61,13 @@ const UserComment = ({ comments, likeTheComment, deleteComment, setModal }) => {
 
     }, [comments.userId])
 
-    if (!user || !comments) {
-        return null; // or a loading indicator, depending on your UI needs
+
+
+
+    const submitHandle = (e) => {
+        e.preventDefault();
     }
+
 
     return (
         <>
@@ -72,44 +82,87 @@ const UserComment = ({ comments, likeTheComment, deleteComment, setModal }) => {
                 </div >
 
 
-                <p className={`text-sm ml-5 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>- {comments && comments.comment}</p>
+                {
+                    editorOpen && (currentUser._id === comments.userId || currentUser.isAdmin)
+                        ?
+                        <>{
+                            editorOpen &&
 
-                <div className="flex items-center gap-7 ml-6 mt-2" >
-
-                    <div className="flex  justify-center  items-center gap-1">
-
-                        {
-                            comments.likes &&
-
-                            <button type='button' className={`flex items-center transition-all gap-2 cursor-pointer  ${user && comments.likes.includes(currentUser && currentUser._id) && '!text-blue-500'}`}>
-
-                                <AiFillLike size={20} onClick={() => likeTheComment(comments && comments._id)} className='active:scale-75' />
-
-                            </button>
-                        }
+                            <div className="">
+                                <form action="" className='flex flex-col gap-1' onSubmit={submitHandle}>
 
 
-                        <p className=''>
-                            {
-                                comments.numberOfLikes > 0 &&
-                                comments.numberOfLikes + " " + (comments.numberOfLikes === 1 ? 'like' : 'likes')
-                            }
-                        </p>
-                    </div>
+                                    <textarea name="editcomment" placeholder='Edit comment ..' className={`transition-all border rounded-md px-2 outline-none py-1 w-72 ${theme === 'dark' ? 'bg-gray-700 border-gray-400 focus:bg-gray-800' : 'bg-gray-200 focus:bg-blue-100 border-gray-300'}`} maxLength={100} value={textAreaVal} onChange={(e) => setTextAreaVal(e.target.value)}></textarea>
 
+                                    <span className={`text-xs font-semibold pl-2 ${textAreaVal.length === 100 ? 'text-red-500' : 'text-green-500'}`}>{100 - textAreaVal?.length} characters left</span>
+                                    <div className="w-72 flex justify-end gap-2">
 
-                    {currentUser && (currentUser._id === comments?.userId || currentUser.isAdmin) &&
+                                        <button type='submit' className='bg-blue-800 text-gray-300 py-1 w-16 font-semibold text-xs rounded-sm' onClick={() => setEditorOpen(false)}>Cancel</button>
+
+                                        <button type='submit' className='bg-green-800 text-gray-300 rounded-sm text-xs w-16 py-1 font-semibold ' onClick={() => setEditorOpen(false)}>Save</button>
+
+                                    </div>
+                                </form>
+                            </div>
+                        }</>
+                        :
                         <>
-                            <button type='button'>
-                                <RiEdit2Fill className='hover:text-green-400 active:scale-75 transition-all' size={20} />
-                            </button>
-                            <button type='button' >
-                                <MdDeleteForever className='hover:text-red-400 active:scale-75 transition-all' size={20} />
-                            </button>
+                            <>
+                                <p className={`text-sm ml-5 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>- {comments && comments.comment}</p>
+
+                                <div className="flex items-center gap-7 ml-6 mt-2" >
+
+                                    <div className="flex  justify-center  items-center gap-1">
+
+                                        {
+                                            comments.likes &&
+
+                                            <button type='button' className={`flex items-center transition-all gap-2 cursor-pointer  ${user && comments.likes.includes(currentUser && currentUser._id) && '!text-blue-500'}`}>
+
+                                                <AiFillLike size={20} onClick={() => likeTheComment(comments && comments._id)} className='active:scale-50 transition-all' />
+
+                                            </button>
+                                        }
+
+
+                                        <p className=''>
+                                            {
+                                                comments.numberOfLikes > 0 &&
+                                                comments.numberOfLikes + " " + (comments.numberOfLikes === 1 ? 'like' : 'likes')
+                                            }
+                                        </p>
+                                    </div>
+
+
+                                    {currentUser && (currentUser._id === comments?.userId || currentUser.isAdmin) &&
+                                        <>
+                                            <button type='button' >
+                                                <RiEdit2Fill className='hover:text-green-400 active:scale-75 transition-all' size={20} onClick={() => setEditorOpen(true)} />
+                                            </button>
+                                            <button type='button' >
+                                                <MdDeleteForever className='hover:text-red-400 active:scale-75 transition-all' size={20} />
+                                            </button>
+                                        </>
+                                    }
+                                </div>
+                            </>
                         </>
-                    }
-                </div>
-            </div>
+                }
+
+
+
+
+
+                {/* {
+                    editorOpen &&
+
+                    <div className="">
+                        <form action="">
+                            <textarea name="" placeholder='Edit comment ..' className={`border rounded-md px-2 outline-none py-1 w-72`}></textarea>
+                        </form>
+                    </div>
+                } */}
+            </div >
         </>
     )
 }
