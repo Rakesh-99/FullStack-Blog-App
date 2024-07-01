@@ -19,10 +19,10 @@ const AllBlogs = () => {
     const { theme } = useSelector((state) => state.themeSliceApp);
     const [userBlogs, setUserBlogs] = useState([]);
     const [showMoreButton, setShowMoreButton] = useState(false);
-    const [startPage, setStartPage] = useState(1);
     const [blogModal, setBlogModal] = useState(false);
     const [blogId, setBlogId] = useState('');
     const [loader, setLoader] = useState(false);
+    const [page, setPage] = useState(2);
 
 
     // Get blogs fetch api : 
@@ -64,34 +64,35 @@ const AllBlogs = () => {
 
 
 
+
+
+    const deleteBlogHandle = (id) => {
+        setBlogId(id);
+        setBlogModal(true)
+    }
+
     // Show More button api :
-    const showMoreBlogsButton = async () => {
-
+    const fetchBlogs = async (page = 2) => {
         try {
-            const response = await axios.get(
-                `/api/blog/get-all-blogs?userId=${user._id}&page=${startPage}`
-            );
+            const response = await axios.get(`/api/blog/get-all-blogs?${user._id}&page=${page}`);
             if (response.status === 200) {
-                if (response.data.blogs.length > 0) {
-                    console.log(response.data.blogs);
-                    setUserBlogs([...userBlogs, ...response.data.blogs]);
 
+                setUserBlogs([...response.data.blogs, ...userBlogs]);
+                setPage(page + 1);
+
+                if (response.data.blogs.length === 0) {
+                    setShowMoreButton(false);
+                    toast.error('No more blogs found!');
                 }
-                setStartPage((prevPage) => prevPage + 1);
             }
-            if (response.data.blogs.length === 0) {
-                toast.success("All blogs have been fetched");
-                setShowMoreButton(false);
-                return false;
-            }
+
         } catch (error) {
             console.log(error.message);
         }
     };
 
-    const deleteBlogHandle = (id) => {
-        setBlogId(id);
-        setBlogModal(true)
+    const showMoreBlogsButton = () => {
+        fetchBlogs(page);
     }
 
 
