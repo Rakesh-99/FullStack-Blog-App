@@ -9,7 +9,6 @@ const RecentBlog = ({ blogs }) => {
 
     const [recentBlogs, setLimitBlogs] = useState(blogs);
 
-    console.log(recentBlogs.slug);
 
 
     return (

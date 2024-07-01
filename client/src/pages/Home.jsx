@@ -3,14 +3,16 @@ import heroImg from '../assests/homeImg.png'
 import { motion } from 'framer-motion';
 import GithubCard from '../components/GithubCard';
 import axios from 'axios'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import RecentBlog from '../components/RecentBlog';
-
+import { Link } from 'react-router-dom';
 const Home = () => {
 
   const { blogs } = useSelector((state) => state.blogSliceApp.blogs);
 
+  const [recentBlogs, setRecentBlogs] = useState([]);
 
+  const { theme } = useSelector((state) => state.themeSliceApp);
 
 
 
@@ -21,7 +23,7 @@ const Home = () => {
         const response = await axios.get(`/api/blog/get-all-blogs?limit=9`);
 
         if (response.status === 200) {
-          console.log(response.data);
+          setRecentBlogs(response.data.blogs)
         }
       } catch (error) {
         console.log(error.message);
@@ -87,23 +89,33 @@ const Home = () => {
             >
               Discover the latest insights in technology and programming through my compelling blogs. Covering Java, JavaScript, and more, I delve into various topics to keep you informed and engaged. Join and explore the ever-evolving landscape of digital innovation! Here you'll find a variety of articles  on topics such as web development, software engineering, and programming languages
             </motion.p>
-
-            <div className="">
-              <GithubCard />
-
-            </div>
-
           </div>
-
-
-
-          {/* Right content  */}
-
-          <div className="w-96  flex-col items-center flex justify-center cursor-not-allowed">
-            <img src={heroImg} className='w-full' />
-          </div>
-
         </div>
+        <GithubCard />
+
+
+
+        <h1 className='text-2xl text-center my-5'>Recent Blogs</h1>
+
+        <div className="flex flex-wrap px-5 w-full my-10 gap-4 justify-center">
+          {
+            recentBlogs && recentBlogs.map((value, index) => {
+              return (
+                <div key={index} className={`shadow-md border hover:scale-95 transition-all w-96 rounded-tl-xl rounded-br-xl pb-5 cursor-pointer ${theme === 'dark' ? 'border-gray-700' : 'border-gray-300'}`}>
+                  <Link to={`/blog/${value.slug}`}>
+                    <img src={value.blogImgFile} className='hover:scale-90 transition-all w-96 h-60 rounded-tl-xl rounded-br-xl' />
+
+                    <div className="px-3">
+                      <p className='text-lg md:text-xl'>{value.blogTitle}</p>
+                      <span className='text-xs md:text-sm w-20 text-center border px-4 rounded-full'>{value.blogCategory}</span>
+                    </div>
+                  </Link>
+                </div>
+              )
+            })
+          }
+        </div>
+
       </div>
     </>
   )
