@@ -66,14 +66,17 @@ const AllBlogs = () => {
 
     // Show More button api :
     const showMoreBlogsButton = async () => {
-        setStartPage(startPage + 1);
 
         try {
             const response = await axios.get(
-                `/api/blog/getallblogs?userId=${user._id}&page=${startPage}`
+                `/api/blog/get-all-blogs?userId=${user._id}&page=${startPage}`
             );
             if (response.status === 200) {
-                setUserBlogs([...userBlogs, ...response.data.blogs]);
+                if (response.data.blogs.length > 0) {
+                    console.log(response.data.blogs);
+                    setUserBlogs([...userBlogs, ...response.data.blogs]);
+
+                }
                 setStartPage((prevPage) => prevPage + 1);
             }
             if (response.data.blogs.length === 0) {
@@ -82,7 +85,7 @@ const AllBlogs = () => {
                 return false;
             }
         } catch (error) {
-            console.log(error);
+            console.log(error.message);
         }
     };
 
@@ -138,8 +141,8 @@ const AllBlogs = () => {
                                     </Table.Row>
                                 </Table.Body>
                             ) : (
-                                userBlogs.map((data) => (
-                                    <Table.Body key={data._id}>
+                                userBlogs.map((data, index) => (
+                                    <Table.Body key={index}>
                                         <Table.Row className={`text-center text-xs md:text-sm transition-all rounded-md ${theme === "dark" ? "hover:bg-slate-700" : "hover:bg-slate-200"}`}>
                                             <Table.Cell className="text-xs md:text-sm">
                                                 {new Date(data.updatedAt).toLocaleDateString()}
