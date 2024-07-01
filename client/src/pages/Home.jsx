@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import GithubCard from '../components/GithubCard';
 import axios from 'axios'
 import { useEffect, useState } from 'react';
-import RecentBlog from '../components/RecentBlog';
 import { Link } from 'react-router-dom';
 const Home = () => {
 
@@ -31,24 +30,6 @@ const Home = () => {
     }
     getAllBlogs();
   }, []);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -91,7 +72,10 @@ const Home = () => {
             </motion.p>
           </div>
         </div>
-        <GithubCard />
+        <div className="flex justify-center w-full">
+          <GithubCard />
+
+        </div>
 
 
 
