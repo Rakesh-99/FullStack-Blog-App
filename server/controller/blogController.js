@@ -12,7 +12,7 @@ import userModel from '../model/userModel.js';
 export const getAllBlogs = asyncHandler(async (req, res, next) => {
 
     const page = parseInt(req.query.page) || 1;
-    const limitBlogs = parseInt(req.query.limit) || 9;
+    const limitBlogs = parseInt(req.query.limit) || 8;
     const sortBlog = req.query.sort === 'asc' ? 1 : -1;
     const skipBlogs = (page - 1) * limitBlogs
 
