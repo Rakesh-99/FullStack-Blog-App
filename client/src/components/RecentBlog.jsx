@@ -28,4 +28,4 @@ const RecentBlog = ({ blogs }) => {
     )
 }
 
-export default RecentBlog
+export default RecentBlog;
