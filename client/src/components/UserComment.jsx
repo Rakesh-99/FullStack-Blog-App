@@ -82,6 +82,7 @@ const UserComment = ({ comments, likeTheComment }) => {
                 </div >
 
 
+                {/* If the editor is open  */}
                 {
                     editorOpen && (currentUser._id === comments.userId || currentUser.isAdmin)
                         ?
@@ -97,8 +98,10 @@ const UserComment = ({ comments, likeTheComment }) => {
                                     <span className={`text-xs font-semibold pl-2 ${textAreaVal.length === 100 ? 'text-red-500' : 'text-green-500'}`}>{100 - textAreaVal?.length} characters left</span>
                                     <div className="w-72 flex justify-end gap-2">
 
+                                        {/* edit cancel button  */}
                                         <button type='submit' className='bg-blue-800 text-gray-300 py-1 w-16 font-semibold text-xs rounded-sm' onClick={() => setEditorOpen(false)}>Cancel</button>
 
+                                        {/* edit save button  */}
                                         <button type='submit' className='bg-green-800 text-gray-300 rounded-sm text-xs w-16 py-1 font-semibold ' onClick={() => setEditorOpen(false)}>Save</button>
 
                                     </div>
@@ -112,6 +115,8 @@ const UserComment = ({ comments, likeTheComment }) => {
 
                                 <div className="flex items-center gap-7 ml-6 mt-2" >
 
+
+                                    {/* Comment like functionality */}
                                     <div className="flex  justify-center  items-center gap-1">
 
                                         {
@@ -136,9 +141,12 @@ const UserComment = ({ comments, likeTheComment }) => {
 
                                     {currentUser && (currentUser._id === comments?.userId || currentUser.isAdmin) &&
                                         <>
+                                            {/* edit button  */}
                                             <button type='button' >
                                                 <RiEdit2Fill className='hover:text-green-400 active:scale-75 transition-all' size={20} onClick={() => setEditorOpen(true)} />
                                             </button>
+
+                                            {/* delete button  */}
                                             <button type='button' >
                                                 <MdDeleteForever className='hover:text-red-400 active:scale-75 transition-all' size={20} />
                                             </button>
@@ -148,21 +156,7 @@ const UserComment = ({ comments, likeTheComment }) => {
                             </>
                         </>
                 }
-
-
-
-
-
-                {/* {
-                    editorOpen &&
-
-                    <div className="">
-                        <form action="">
-                            <textarea name="" placeholder='Edit comment ..' className={`border rounded-md px-2 outline-none py-1 w-72`}></textarea>
-                        </form>
-                    </div>
-                } */}
-            </div >
+            </div>
         </>
     )
 }
