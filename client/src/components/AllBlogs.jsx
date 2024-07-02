@@ -102,7 +102,7 @@ const AllBlogs = () => {
     return (
         <>
             {user && user.isAdmin ? (
-                <div className={`min-h-screen border  my-2 mx-2 rounded-md w-full items-center md:mx-10 table-auto overflow-x-scroll scrollbar ${theme === 'dark' ? 'border-zinc-700' : 'border-gray-300'}`}>
+                <div className={`min-h-screen border  my-2 mx-2 rounded-md w-full items-center md:mx-5 table-auto overflow-x-scroll scrollbar ${theme === 'dark' ? 'border-zinc-700' : 'border-gray-300'}`}>
                     <Table hoverable className="my-5">
 
                         <Table.Head className={` text-base ${theme === "dark" ? "text-gray-100" : "text-gray-700"}`}>

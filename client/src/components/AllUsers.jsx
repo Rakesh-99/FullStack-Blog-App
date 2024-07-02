@@ -123,7 +123,7 @@ const AllUsers = () => {
     return (
         <>
 
-            <div className="min-h-screen w-full md:mx-10 table-auto overflow-x-scroll scrollbar">
+            <div className={`min-h-screen shadow-sm border my-2 rounded-md w-full md:mx-5 table-auto overflow-x-scroll scrollbar  ${theme === 'dark' ? 'border-zinc-700' : 'border-gray-200'} mx-2 md:mx-0`}>
                 {
                     getAllUsers.length > 0 &&
                     <Table hoverable className={`my-5`}>
@@ -132,43 +132,43 @@ const AllUsers = () => {
                                 } `}
                         >
                             <Table.HeadCell
-                                className={`font-semibold text-sm md:text-base border-b ${theme === "dark" && "border-gray-500"
-                                    } px-10 md:px-0`}
+                                className={`text-center font-semibold px-5 md:text-sm text-xs border-b ${theme === "dark" && "border-gray-500"
+                                    } `}
                             >
                                 Updated on
                             </Table.HeadCell>
 
                             <Table.HeadCell
-                                className={`font-semibold text-sm md:text-base border-b ${theme === "dark" && "border-gray-500"
-                                    } px-10 md:px-0`}
+                                className={` text-center font-semibold md:text-sm text-xs border-b ${theme === "dark" && "border-gray-500"
+                                    } `}
                             >
                                 profilePicture
                             </Table.HeadCell>
 
                             <Table.HeadCell
-                                className={`font-semibold text-sm md:text-base border-b ${theme === "dark" && "border-gray-500"
-                                    } px-10 md:px-0`}
+                                className={` text-center font-semibold md:text-sm text-xs border-b ${theme === "dark" && "border-gray-500"
+                                    } `}
                             >
                                 Username
                             </Table.HeadCell>
 
                             <Table.HeadCell
-                                className={`font-semibold text-sm md:text-base border-b ${theme === "dark" && "border-gray-500"
-                                    } px-10 md:px-0`}
+                                className={`text-center font-semibold md:text-sm text-xs border-b ${theme === "dark" && "border-gray-500"
+                                    } `}
                             >
                                 <span>Email</span>
                             </Table.HeadCell>
 
                             <Table.HeadCell
-                                className={`font-semibold text-sm md:text-base border-b ${theme === "dark" && "border-gray-500"
-                                    } px-10 md:px-0`}
+                                className={`pr-2  md:pr-0 font-semibold md:text-sm text-xs border-b ${theme === "dark" && "border-gray-500"
+                                    } `}
                             >
                                 Admin
                             </Table.HeadCell>
 
                             <Table.HeadCell
-                                className={`font-semibold text-sm md:text-base border-b ${theme === "dark" && "border-gray-500"
-                                    } px-10 md:px-0`}
+                                className={`pl-2 md:pl-0 font-semibold md:text-sm text-xs border-b ${theme === "dark" && "border-gray-500"
+                                    } `}
                             >
                                 Delete
                             </Table.HeadCell>
@@ -187,11 +187,11 @@ const AllUsers = () => {
                                                     : "hover:bg-slate-200"
                                                     }`}
                                             >
-                                                <Table.Cell className=" text-xs md:text-sm">
+                                                <Table.Cell className="text-center text-xs md:text-sm">
                                                     {new Date(user.updatedAt).toLocaleDateString()}
                                                 </Table.Cell>
 
-                                                <Table.Cell className="flex justify-center ">
+                                                <Table.Cell className="  flex justify-center ">
                                                     <NavLink className="text-center" to={`/blog`}>
                                                         <img
                                                             src={user.profilePicture}
@@ -202,17 +202,17 @@ const AllUsers = () => {
                                                 </Table.Cell>
 
                                                 <Table.Cell
-                                                    className={`border-l border-r px-20 md:pl-10 text-xs text-justify md:text-sm ${theme === "dark" && "text-gray-300 border-gray-700"
+                                                    className={`pl-5 border-l border-r text-xs text-jusc md:text-sm ${theme === "dark" && "text-gray-300 border-gray-700"
                                                         }`}
                                                 >
                                                     {user.username}
                                                 </Table.Cell>
 
-                                                <Table.Cell className="">
-                                                    <span className="pl-10">{user.email}</span>
+                                                <Table.Cell className="pl-5">
+                                                    <span className="">{user.email}</span>
                                                 </Table.Cell>
 
-                                                <Table.Cell className="text-xs md:text-sm text-justify pl-12 md:pl-4">
+                                                <Table.Cell className="text-xs md:text-sm text-justify pl-3">
                                                     {user.isAdmin ? (
                                                         <TiTick color="green" size={25} />
                                                     ) : (
@@ -222,7 +222,7 @@ const AllUsers = () => {
 
                                                 <Table.Cell>
                                                     <button
-                                                        className="text-red-500 hover:underline pl-10 md:pl-2"
+                                                        className="text-red-500 hover:underline"
                                                         onClick={() => {
                                                             deleteUserHandle(user._id);
                                                         }}
