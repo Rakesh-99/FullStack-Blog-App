@@ -102,7 +102,7 @@ const AllBlogs = () => {
     return (
         <>
             {user && user.isAdmin ? (
-                <div className="min-h-screen w-full items-center md:mx-10 table-auto overflow-x-scroll scrollbar">
+                <div className={`min-h-screen border  my-2 mx-2 rounded-md w-full items-center md:mx-10 table-auto overflow-x-scroll scrollbar ${theme === 'dark' ? 'border-zinc-700' : 'border-gray-300'}`}>
                     <Table hoverable className="my-5">
 
                         <Table.Head className={` text-base ${theme === "dark" ? "text-gray-100" : "text-gray-700"}`}>
@@ -195,7 +195,7 @@ const AllBlogs = () => {
                     </Table>
                     {showMoreButton && (
                         <div className="text-center my-5">
-                            <button onClick={showMoreBlogsButton} className={`transition-all active:scale-95 hover:bg-blue-900 py-2 font-semibold text-sm px-2 border-2 rounded-md ${theme === "dark" ? "bg-gray-700 active:bg-gray-800 text-gray-200 border-gray-400" : "active:bg-gray-600 active:text-white hover:text-white bg-gray-300 text-gray-800 border-gray-500"}`}>
+                            <button onClick={showMoreBlogsButton} className={`transition-all active:scale-95 hover:bg-blue-900 py-1 font-semibold text-xs px-2 border rounded-sm ${theme === "dark" ? "bg-gray-700 active:bg-gray-800 text-gray-300 border-gray-400" : "active:bg-gray-600 active:text-white hover:text-white bg-gray-300 text-gray-800 border-gray-500"}`}>
                                 Show more..
                             </button>
                         </div>

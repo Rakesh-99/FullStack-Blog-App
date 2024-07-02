@@ -54,7 +54,7 @@ const DashboardSidebar = () => {
 
     return (
         <>
-            <div className={`transition-all border w-full py-4 border-r   md:w-60  md:min-h-screen ${theme === 'dark' ? 'border-slate-700' : 'border-gray-300'}`} >
+            <div className={`transition-all  w-full py-4   md:w-60  md:min-h-screen ${theme === 'dark' ? 'border-slate-700' : 'border-gray-300'}`} >
 
                 <NavLink to={'?tab=profile'} className={`flex mb-4 items-center justify-center gap-2 cursor-pointer transition-all ${tab === 'profile' && 'bg-gray-600 mx-3 text-white rounded-md py-2 '}`} >
                     <span><CgProfile size={25} /></span>
