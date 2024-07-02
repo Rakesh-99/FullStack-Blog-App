@@ -167,7 +167,10 @@ const AllBlogs = () => {
 
                                             {/* Blog Title  */}
                                             <Table.Cell className={`border-l border-r px-1 md:pl-10 text-xs md:text-justify text-left md:text-sm ${theme === "dark" && "text-gray-300 border-gray-700"}`}>
-                                                {data.blogTitle}
+                                                <NavLink className="" to={`/blog/${data.slug}`}>
+                                                    <p>{data.blogTitle}</p>
+                                                </NavLink>
+
                                             </Table.Cell>
 
                                             {/* Blog Category  */}
