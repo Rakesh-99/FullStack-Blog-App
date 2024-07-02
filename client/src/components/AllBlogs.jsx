@@ -82,7 +82,7 @@ const AllBlogs = () => {
 
                 if (response.data.blogs.length === 0) {
                     setShowMoreButton(false);
-                    toast.error('No more blogs found!');
+                    toast.success('All blogs have been fetched');
                 }
             }
 
@@ -102,27 +102,34 @@ const AllBlogs = () => {
     return (
         <>
             {user && user.isAdmin ? (
-                <div className="min-h-screen w-full md:mx-10 table-auto overflow-x-scroll scrollbar">
+                <div className="min-h-screen w-full items-center md:mx-10 table-auto overflow-x-scroll scrollbar">
                     <Table hoverable className="my-5">
-                        <Table.Head className={`text-base ${theme === "dark" ? "text-gray-100" : "text-gray-700"}`}>
-                            <Table.HeadCell className={`font-semibold text-sm md:text-base border-b ${theme === "dark" && "border-gray-500"} px-10 md:px-0`}>
+
+                        <Table.Head className={` text-base ${theme === "dark" ? "text-gray-100" : "text-gray-700"}`}>
+                            <Table.HeadCell className={`  md:text-sm text-xs border-b ${theme === "dark" && "border-gray-500"} items-center justify-center px-5`}>
                                 Updated on
                             </Table.HeadCell>
-                            <Table.HeadCell className={`font-semibold text-sm md:text-base border-b ${theme === "dark" && "border-gray-500"} px-10 md:px-0`}>
+
+                            <Table.HeadCell className={` px-5 md:px-2 md:text-sm text-xs border-b ${theme === "dark" && "border-gray-500"} `}>
                                 Image
                             </Table.HeadCell>
-                            <Table.HeadCell className={`font-semibold text-sm md:text-base border-b ${theme === "dark" && "border-gray-500"} px-10 md:px-0`}>
+
+                            <Table.HeadCell className={` md:text-sm text-xs border-b ${theme === "dark" && "border-gray-500"}  text-center`}>
                                 Blog Title
                             </Table.HeadCell>
-                            <Table.HeadCell className={`font-semibold text-sm md:text-base border-b ${theme === "dark" && "border-gray-500"} px-10 md:px-0`}>
+
+                            <Table.HeadCell className={` md:text-sm text-xs border-b ${theme === "dark" && "border-gray-500"} px-5`}>
                                 Category
                             </Table.HeadCell>
-                            <Table.HeadCell className={`font-semibold text-sm md:text-base border-b ${theme === "dark" && "border-gray-500"} px-10 md:px-0`}>
+
+                            <Table.HeadCell className={` md:text-sm text-xs border-b ${theme === "dark" && "border-gray-500"} px-5 `}>
                                 <span>Edit</span>
                             </Table.HeadCell>
-                            <Table.HeadCell className={`font-semibold text-sm md:text-base border-b ${theme === "dark" && "border-gray-500"} px-10 md:px-0`}>
+
+                            <Table.HeadCell className={`md:text-sm text-xs border-b ${theme === "dark" && "border-gray-500"} px-5`}>
                                 Delete
                             </Table.HeadCell>
+
                         </Table.Head>
                         {
                             loader ? (
@@ -145,26 +152,37 @@ const AllBlogs = () => {
                                 userBlogs.map((data, index) => (
                                     <Table.Body key={index}>
                                         <Table.Row className={`text-center text-xs md:text-sm transition-all rounded-md ${theme === "dark" ? "hover:bg-slate-700" : "hover:bg-slate-200"}`}>
+
+                                            {/* Blog Date  */}
                                             <Table.Cell className="text-xs md:text-sm">
                                                 {new Date(data.updatedAt).toLocaleDateString()}
                                             </Table.Cell>
+
+                                            {/* Blog Image  */}
                                             <Table.Cell className="flex justify-center">
                                                 <NavLink className="text-center" to={`/blog/${data.slug}`}>
                                                     <img src={data.blogImgFile} alt="blogImage" className="w-10 text-center rounded-full h-10 md:w-20 md:rounded-md" />
                                                 </NavLink>
                                             </Table.Cell>
-                                            <Table.Cell className={`border-l border-r px-20 md:pl-10 text-xs text-justify md:text-sm ${theme === "dark" && "text-gray-300 border-gray-700"}`}>
+
+                                            {/* Blog Title  */}
+                                            <Table.Cell className={`border-l border-r px-1 md:pl-10 text-xs md:text-justify text-left md:text-sm ${theme === "dark" && "text-gray-300 border-gray-700"}`}>
                                                 {data.blogTitle}
                                             </Table.Cell>
-                                            <Table.Cell className="text-xs md:text-sm text-justify pl-12">
+
+                                            {/* Blog Category  */}
+                                            <Table.Cell className="text-xs md:text-sm text-justify pl-5">
                                                 {data.blogCategory}
                                             </Table.Cell>
                                             <Table.Cell>
+
+                                                {/* Blog Edit Button  */}
                                                 <NavLink to={`/update-blog/${data._id}`} className="text-green-500 hover:underline">
                                                     Edit
                                                 </NavLink>
                                             </Table.Cell>
                                             <Table.Cell>
+                                                {/* Blog Delete Button  */}
                                                 <button className="text-red-500 hover:underline" onClick={() => deleteBlogHandle(data._id)}>
                                                     Delete
                                                 </button>
