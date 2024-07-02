@@ -128,46 +128,46 @@ const AllUsers = () => {
                     getAllUsers.length > 0 &&
                     <Table hoverable className={`my-5`}>
                         <Table.Head
-                            className={` text-base   ${theme === "dark" ? "text-gray-100" : "text-gray-700"
+                            className={` text-base   ${theme === "dark" ? "text-gray-100 bg-gray-700" : "text-gray-700 bg-gray-300"
                                 } `}
                         >
                             <Table.HeadCell
-                                className={`text-center font-semibold px-5 md:text-sm text-xs border-b ${theme === "dark" && "border-gray-500"
+                                className={`text-center font-semibold px-5 md:text-sm text-xs  ${theme === "dark" && "border-gray-500"
                                     } `}
                             >
                                 Updated on
                             </Table.HeadCell>
 
                             <Table.HeadCell
-                                className={` text-center font-semibold md:text-sm text-xs border-b ${theme === "dark" && "border-gray-500"
+                                className={` text-center font-semibold md:text-sm text-xs  ${theme === "dark" && "border-gray-500"
                                     } `}
                             >
                                 profilePicture
                             </Table.HeadCell>
 
                             <Table.HeadCell
-                                className={` text-center font-semibold md:text-sm text-xs border-b ${theme === "dark" && "border-gray-500"
+                                className={` text-center font-semibold md:text-sm text-xs  ${theme === "dark" && "border-gray-500"
                                     } `}
                             >
                                 Username
                             </Table.HeadCell>
 
                             <Table.HeadCell
-                                className={`text-center font-semibold md:text-sm text-xs border-b ${theme === "dark" && "border-gray-500"
+                                className={`text-center font-semibold md:text-sm text-xs  ${theme === "dark" && "border-gray-500"
                                     } `}
                             >
                                 <span>Email</span>
                             </Table.HeadCell>
 
                             <Table.HeadCell
-                                className={`pr-2  md:pr-0 font-semibold md:text-sm text-xs border-b ${theme === "dark" && "border-gray-500"
+                                className={`pr-2  md:pr-0 font-semibold md:text-sm text-xs ${theme === "dark" && "border-gray-500"
                                     } `}
                             >
                                 Admin
                             </Table.HeadCell>
 
                             <Table.HeadCell
-                                className={`pl-2 md:pl-0 font-semibold md:text-sm text-xs border-b ${theme === "dark" && "border-gray-500"
+                                className={`pl-2 md:pl-0 font-semibold md:text-sm text-xs  ${theme === "dark" && "border-gray-500"
                                     } `}
                             >
                                 Delete
@@ -183,8 +183,8 @@ const AllUsers = () => {
                                             <Table.Row
                                                 key={user._id}
                                                 className={` text-xs md:text-sm  transition-all rounded-md  ${theme === "dark"
-                                                    ? "hover:bg-slate-700"
-                                                    : "hover:bg-slate-200"
+                                                    ? "hover:bg-gray-800"
+                                                    : "hover:bg-slate-100"
                                                     }`}
                                             >
                                                 <Table.Cell className="text-center text-xs md:text-sm">

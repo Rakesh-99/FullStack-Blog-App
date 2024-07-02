@@ -102,31 +102,31 @@ const AllBlogs = () => {
     return (
         <>
             {user && user.isAdmin ? (
-                <div className={`min-h-screen border  my-2 mx-2 rounded-md w-full items-center md:mx-5 table-auto overflow-x-scroll scrollbar ${theme === 'dark' ? 'border-zinc-700' : 'border-gray-300'}`}>
+                <div className={`transition-all min-h-screen border  my-2 mx-2 rounded-md w-full items-center md:mx-5 table-auto overflow-x-scroll scrollbar ${theme === 'dark' ? 'border-zinc-700' : 'border-gray-300'}`}>
                     <Table hoverable className="my-5">
 
-                        <Table.Head className={` text-base ${theme === "dark" ? "text-gray-100" : "text-gray-700"}`}>
-                            <Table.HeadCell className={`  md:text-sm text-xs border-b ${theme === "dark" && "border-gray-500"} items-center justify-center px-5`}>
+                        <Table.Head className={`text-base ${theme === "dark" ? "text-gray-100 bg-zinc-700 " : "text-gray-700 bg-gray-300"}`}>
+                            <Table.HeadCell className={`  md:text-sm text-xs  ${theme === "dark" && "border-gray-500"} items-center justify-center px-5`}>
                                 Updated on
                             </Table.HeadCell>
 
-                            <Table.HeadCell className={` px-5 md:px-2 md:text-sm text-xs border-b ${theme === "dark" && "border-gray-500"} `}>
+                            <Table.HeadCell className={` px-5 md:px-2 md:text-sm text-xs ${theme === "dark" && "border-gray-500"} `}>
                                 Image
                             </Table.HeadCell>
 
-                            <Table.HeadCell className={` md:text-sm text-xs border-b ${theme === "dark" && "border-gray-500"}  text-center`}>
+                            <Table.HeadCell className={` md:text-sm text-xs ${theme === "dark" && "border-gray-500"}  text-center`}>
                                 Blog Title
                             </Table.HeadCell>
 
-                            <Table.HeadCell className={` md:text-sm text-xs border-b ${theme === "dark" && "border-gray-500"} px-5`}>
+                            <Table.HeadCell className={` md:text-sm text-xs ${theme === "dark" && "border-gray-500"} px-5`}>
                                 Category
                             </Table.HeadCell>
 
-                            <Table.HeadCell className={` md:text-sm text-xs border-b ${theme === "dark" && "border-gray-500"} px-5 `}>
+                            <Table.HeadCell className={` md:text-sm text-xs  ${theme === "dark" && "border-gray-500"} px-5 `}>
                                 <span>Edit</span>
                             </Table.HeadCell>
 
-                            <Table.HeadCell className={`md:text-sm text-xs border-b ${theme === "dark" && "border-gray-500"} px-5`}>
+                            <Table.HeadCell className={`md:text-sm text-xs ${theme === "dark" && "border-gray-500"} px-5`}>
                                 Delete
                             </Table.HeadCell>
 
@@ -151,7 +151,7 @@ const AllBlogs = () => {
                             ) : (
                                 userBlogs.map((data, index) => (
                                     <Table.Body key={index}>
-                                        <Table.Row className={`text-center text-xs md:text-sm transition-all rounded-md ${theme === "dark" ? "hover:bg-slate-700" : "hover:bg-slate-200"}`}>
+                                        <Table.Row className={`text-center text-xs md:text-sm transition-all rounded-md ${theme === "dark" ? "hover:bg-gray-800" : "hover:bg-gray-100"}`}>
 
                                             {/* Blog Date  */}
                                             <Table.Cell className="text-xs md:text-sm">
